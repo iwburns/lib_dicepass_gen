@@ -11,9 +11,29 @@ pub struct PassphraseGenerator {
 impl PassphraseGenerator {
     pub fn new() -> PassphraseGenerator {
         PassphraseGenerator {
-            word_count: defaults::WORD_COUNT,
-            rolls_per_word: defaults::ROLLS_PER_WORD,
-            sequence_map: &defaults::WORD_LIST,
+            word_count: defaults::eff_short_2::WORD_COUNT,
+            rolls_per_word: defaults::eff_short_2::ROLLS_PER_WORD,
+            sequence_map: &defaults::eff_short_2::WORD_LIST,
+        }
+    }
+
+    pub fn from_eff_short_2() -> PassphraseGenerator {
+        PassphraseGenerator::new()
+    }
+
+    pub fn from_eff_short() -> PassphraseGenerator {
+        PassphraseGenerator {
+            word_count: defaults::eff_short::WORD_COUNT,
+            rolls_per_word: defaults::eff_short::ROLLS_PER_WORD,
+            sequence_map: &defaults::eff_short::WORD_LIST,
+        }
+    }
+
+    pub fn from_eff_long() -> PassphraseGenerator {
+        PassphraseGenerator {
+            word_count: defaults::eff_long::WORD_COUNT,
+            rolls_per_word: defaults::eff_long::ROLLS_PER_WORD,
+            sequence_map: &defaults::eff_long::WORD_LIST,
         }
     }
 
