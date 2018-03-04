@@ -24,6 +24,15 @@ impl From<WordCount> for Option<u32> {
     }
 }
 
+impl From<Option<u32>> for WordCount {
+    fn from(opt: Option<u32>) -> Self {
+        match word_count {
+            None => WordCount::Default,
+            Some(count) => WordCount::Custom(count),
+        }
+    }
+}
+
 #[derive(Debug, Clone, Copy)]
 pub struct PassGenConfig {
     pub word_list: WordList,
