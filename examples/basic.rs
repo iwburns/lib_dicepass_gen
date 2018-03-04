@@ -1,15 +1,24 @@
 extern crate lib_dicepass_gen;
 
 use lib_dicepass_gen::*;
+use lib_dicepass_gen::WordCount::*;
 
 fn main() {
-    // the default word list
-    let pg = PassphraseGenerator::new();
-    println!("Your passphrase is: \n\t[{}]", pg.generate());
-    println!("Your custom length passphrase is: \n\t[{}]", pg.generate_with_length(10));
+    // the eff's short list (with unique prefixes)
+    let mut config = PassGenConfig::from_eff_short_2(Default);
+    println!("Your passphrase is: \n\t[{}]", generate(config));
+    config.word_count = Custom(10);
+    println!(
+        "Your custom length passphrase is: \n\t[{}]",
+        generate(config)
+    );
 
     // the eff's long word list
-    let pg = PassphraseGenerator::from_eff_long();
-    println!("Your long-word passphrase is: \n\t[{}]", pg.generate());
-    println!("Your custom length long-word passphrase is: \n\t[{}]", pg.generate_with_length(10));
+    let mut config = PassGenConfig::from_eff_long(Default);
+    println!("Your long-word passphrase is: \n\t[{}]", generate(config));
+    config.word_count = Custom(10);
+    println!(
+        "Your custom length long-word passphrase is: \n\t[{}]",
+        generate(config)
+    );
 }
