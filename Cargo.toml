@@ -1,0 +1,12 @@
+[package]
+name = "lib_dicepass_gen"
+version = "0.1.0"
+authors = ["Ian Burns <iwburns8@gmail.com>"]
+
+[dependencies]
+rand="0.4.0"
+lazy_static="1.0.0"
+
+[[example]]
+name = "basic"
+path = "examples/basic.rs"
