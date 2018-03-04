@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-pub static WORD_COUNT: u32 = 5;
+pub static WORD_COUNT: u32 = 8;
 pub static ROLLS_PER_WORD: u32 = 4;
 
 lazy_static! {

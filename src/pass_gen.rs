@@ -66,7 +66,7 @@ mod tests {
     #[test]
     fn default_pass_phrase_length() {
         let phrase = PassphraseGenerator::new().generate();
-        assert_eq!(phrase.split(" ").count(), 5);
+        assert_eq!(phrase.split(" ").count(), 8);
     }
 
     #[test]
