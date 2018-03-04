@@ -3,10 +3,12 @@ use std::collections::HashMap;
 pub static WORD_COUNT: u32 = 5;
 pub static ROLLS_PER_WORD: u32 = 5;
 
+//todo: consider giant match statement or phf crate
+
 lazy_static! {
     #[derive(Debug)]
     pub static ref WORD_LIST: HashMap<&'static str, &'static str> = {
-        let mut m = HashMap::new();
+        let mut m = HashMap::with_capacity(7776);
         m.insert("11111", "abacus");
         m.insert("11112", "abdomen");
         m.insert("11113", "abdominal");

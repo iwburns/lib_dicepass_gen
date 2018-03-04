@@ -6,7 +6,7 @@ pub static ROLLS_PER_WORD: u32 = 4;
 lazy_static! {
     #[derive(Debug)]
     pub static ref WORD_LIST: HashMap<&'static str, &'static str> = {
-        let mut m = HashMap::new();
+        let mut m = HashMap::with_capacity(1296);
         m.insert("1111", "aardvark");
         m.insert("1112", "abandoned");
         m.insert("1113", "abbreviate");

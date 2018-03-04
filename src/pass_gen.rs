@@ -26,7 +26,7 @@ impl From<WordCount> for Option<u32> {
 
 impl From<Option<u32>> for WordCount {
     fn from(opt: Option<u32>) -> Self {
-        match word_count {
+        match opt {
             None => WordCount::Default,
             Some(count) => WordCount::Custom(count),
         }
