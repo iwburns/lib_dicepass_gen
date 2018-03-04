@@ -30,4 +30,4 @@ fn main() {
 }
 ```
 
-Future versions will allow custom word-lists to be used as well.
+Future versions may allow custom word-lists to be used as well.
