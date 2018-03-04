@@ -168,3 +168,24 @@ mod test {
         assert_eq!(pass.split_whitespace().count(), word_count as usize);
     }
 }
+
+//
+//fn parse_word_list(file_path: &str) -> std::io::Result<HashMap<String, String>> {
+//    let mut word_list = File::open(file_path)?;
+//
+//    let mut file_contents = String::new();
+//    word_list.read_to_string(&mut file_contents)?;
+//
+//    let line_count = file_contents.as_str().lines().count();
+//    let map = HashMap::with_capacity(line_count);
+//
+//    let map = file_contents.lines().fold(map, |mut acc, line| {
+//        let mut parts = line.split_whitespace();
+//        let key = parts.next().unwrap_or("").to_string();
+//        let value = parts.next().unwrap_or("").to_string();
+//        acc.insert(key, value);
+//        acc
+//    });
+//
+//    return Ok(map);
+//}
