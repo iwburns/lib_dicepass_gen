@@ -1,5 +1,9 @@
-#[macro_use]
-extern crate lazy_static;
+#![feature(test)]
+
+#![feature(plugin)]
+#![plugin(phf_macros)]
+extern crate phf;
+
 extern crate rand;
 
 mod defaults;

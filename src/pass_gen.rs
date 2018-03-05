@@ -1,5 +1,6 @@
-use std::collections::HashMap;
+use phf;
 use rand::{OsRng, Rng};
+
 use defaults;
 
 #[derive(Debug, Clone, Copy)]
@@ -83,12 +84,12 @@ pub fn generate(config: PassGenConfig) -> String {
 }
 
 fn generate_passphrase(
-    sequence_map: &'static HashMap<&'static str, &'static str>,
+    sequence_map: &'static phf::Map<&'static str, &'static str>,
     length: u32,
     rolls_per_word: u32,
 ) -> String {
     let mut rng = OsRng::new().expect("couldn't get rng");
-    let mut words = Vec::with_capacity(length as usize);
+    let mut words = Vec::new();
 
     for _ in 0..length {
         let sequence = gen_sequence(rolls_per_word, &mut rng);
@@ -101,7 +102,7 @@ fn generate_passphrase(
 }
 
 fn gen_sequence(num_rolls: u32, rng: &mut OsRng) -> String {
-    let mut sequence = String::with_capacity(num_rolls as usize);
+    let mut sequence = String::new();
     for _ in 0..num_rolls {
         let roll = rng.gen_range(1u32, 7u32).to_string();
         sequence.push_str(&roll);

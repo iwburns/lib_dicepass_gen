@@ -1,1308 +1,1303 @@
-use std::collections::HashMap;
+extern crate phf;
 
 pub static WORD_COUNT: u32 = 8;
 pub static ROLLS_PER_WORD: u32 = 4;
 
-lazy_static! {
-    #[derive(Debug)]
-    pub static ref WORD_LIST: HashMap<&'static str, &'static str> = {
-        let mut m = HashMap::with_capacity(1296);
-        m.insert("1111", "acid");
-        m.insert("1112", "acorn");
-        m.insert("1113", "acre");
-        m.insert("1114", "acts");
-        m.insert("1115", "afar");
-        m.insert("1116", "affix");
-        m.insert("1121", "aged");
-        m.insert("1122", "agent");
-        m.insert("1123", "agile");
-        m.insert("1124", "aging");
-        m.insert("1125", "agony");
-        m.insert("1126", "ahead");
-        m.insert("1131", "aide");
-        m.insert("1132", "aids");
-        m.insert("1133", "aim");
-        m.insert("1134", "ajar");
-        m.insert("1135", "alarm");
-        m.insert("1136", "alias");
-        m.insert("1141", "alibi");
-        m.insert("1142", "alien");
-        m.insert("1143", "alike");
-        m.insert("1144", "alive");
-        m.insert("1145", "aloe");
-        m.insert("1146", "aloft");
-        m.insert("1151", "aloha");
-        m.insert("1152", "alone");
-        m.insert("1153", "amend");
-        m.insert("1154", "amino");
-        m.insert("1155", "ample");
-        m.insert("1156", "amuse");
-        m.insert("1161", "angel");
-        m.insert("1162", "anger");
-        m.insert("1163", "angle");
-        m.insert("1164", "ankle");
-        m.insert("1165", "apple");
-        m.insert("1166", "april");
-        m.insert("1211", "apron");
-        m.insert("1212", "aqua");
-        m.insert("1213", "area");
-        m.insert("1214", "arena");
-        m.insert("1215", "argue");
-        m.insert("1216", "arise");
-        m.insert("1221", "armed");
-        m.insert("1222", "armor");
-        m.insert("1223", "army");
-        m.insert("1224", "aroma");
-        m.insert("1225", "array");
-        m.insert("1226", "arson");
-        m.insert("1231", "art");
-        m.insert("1232", "ashen");
-        m.insert("1233", "ashes");
-        m.insert("1234", "atlas");
-        m.insert("1235", "atom");
-        m.insert("1236", "attic");
-        m.insert("1241", "audio");
-        m.insert("1242", "avert");
-        m.insert("1243", "avoid");
-        m.insert("1244", "awake");
-        m.insert("1245", "award");
-        m.insert("1246", "awoke");
-        m.insert("1251", "axis");
-        m.insert("1252", "bacon");
-        m.insert("1253", "badge");
-        m.insert("1254", "bagel");
-        m.insert("1255", "baggy");
-        m.insert("1256", "baked");
-        m.insert("1261", "baker");
-        m.insert("1262", "balmy");
-        m.insert("1263", "banjo");
-        m.insert("1264", "barge");
-        m.insert("1265", "barn");
-        m.insert("1266", "bash");
-        m.insert("1311", "basil");
-        m.insert("1312", "bask");
-        m.insert("1313", "batch");
-        m.insert("1314", "bath");
-        m.insert("1315", "baton");
-        m.insert("1316", "bats");
-        m.insert("1321", "blade");
-        m.insert("1322", "blank");
-        m.insert("1323", "blast");
-        m.insert("1324", "blaze");
-        m.insert("1325", "bleak");
-        m.insert("1326", "blend");
-        m.insert("1331", "bless");
-        m.insert("1332", "blimp");
-        m.insert("1333", "blink");
-        m.insert("1334", "bloat");
-        m.insert("1335", "blob");
-        m.insert("1336", "blog");
-        m.insert("1341", "blot");
-        m.insert("1342", "blunt");
-        m.insert("1343", "blurt");
-        m.insert("1344", "blush");
-        m.insert("1345", "boast");
-        m.insert("1346", "boat");
-        m.insert("1351", "body");
-        m.insert("1352", "boil");
-        m.insert("1353", "bok");
-        m.insert("1354", "bolt");
-        m.insert("1355", "boned");
-        m.insert("1356", "boney");
-        m.insert("1361", "bonus");
-        m.insert("1362", "bony");
-        m.insert("1363", "book");
-        m.insert("1364", "booth");
-        m.insert("1365", "boots");
-        m.insert("1366", "boss");
-        m.insert("1411", "botch");
-        m.insert("1412", "both");
-        m.insert("1413", "boxer");
-        m.insert("1414", "breed");
-        m.insert("1415", "bribe");
-        m.insert("1416", "brick");
-        m.insert("1421", "bride");
-        m.insert("1422", "brim");
-        m.insert("1423", "bring");
-        m.insert("1424", "brink");
-        m.insert("1425", "brisk");
-        m.insert("1426", "broad");
-        m.insert("1431", "broil");
-        m.insert("1432", "broke");
-        m.insert("1433", "brook");
-        m.insert("1434", "broom");
-        m.insert("1435", "brush");
-        m.insert("1436", "buck");
-        m.insert("1441", "bud");
-        m.insert("1442", "buggy");
-        m.insert("1443", "bulge");
-        m.insert("1444", "bulk");
-        m.insert("1445", "bully");
-        m.insert("1446", "bunch");
-        m.insert("1451", "bunny");
-        m.insert("1452", "bunt");
-        m.insert("1453", "bush");
-        m.insert("1454", "bust");
-        m.insert("1455", "busy");
-        m.insert("1456", "buzz");
-        m.insert("1461", "cable");
-        m.insert("1462", "cache");
-        m.insert("1463", "cadet");
-        m.insert("1464", "cage");
-        m.insert("1465", "cake");
-        m.insert("1466", "calm");
-        m.insert("1511", "cameo");
-        m.insert("1512", "canal");
-        m.insert("1513", "candy");
-        m.insert("1514", "cane");
-        m.insert("1515", "canon");
-        m.insert("1516", "cape");
-        m.insert("1521", "card");
-        m.insert("1522", "cargo");
-        m.insert("1523", "carol");
-        m.insert("1524", "carry");
-        m.insert("1525", "carve");
-        m.insert("1526", "case");
-        m.insert("1531", "cash");
-        m.insert("1532", "cause");
-        m.insert("1533", "cedar");
-        m.insert("1534", "chain");
-        m.insert("1535", "chair");
-        m.insert("1536", "chant");
-        m.insert("1541", "chaos");
-        m.insert("1542", "charm");
-        m.insert("1543", "chase");
-        m.insert("1544", "cheek");
-        m.insert("1545", "cheer");
-        m.insert("1546", "chef");
-        m.insert("1551", "chess");
-        m.insert("1552", "chest");
-        m.insert("1553", "chew");
-        m.insert("1554", "chief");
-        m.insert("1555", "chili");
-        m.insert("1556", "chill");
-        m.insert("1561", "chip");
-        m.insert("1562", "chomp");
-        m.insert("1563", "chop");
-        m.insert("1564", "chow");
-        m.insert("1565", "chuck");
-        m.insert("1566", "chump");
-        m.insert("1611", "chunk");
-        m.insert("1612", "churn");
-        m.insert("1613", "chute");
-        m.insert("1614", "cider");
-        m.insert("1615", "cinch");
-        m.insert("1616", "city");
-        m.insert("1621", "civic");
-        m.insert("1622", "civil");
-        m.insert("1623", "clad");
-        m.insert("1624", "claim");
-        m.insert("1625", "clamp");
-        m.insert("1626", "clap");
-        m.insert("1631", "clash");
-        m.insert("1632", "clasp");
-        m.insert("1633", "class");
-        m.insert("1634", "claw");
-        m.insert("1635", "clay");
-        m.insert("1636", "clean");
-        m.insert("1641", "clear");
-        m.insert("1642", "cleat");
-        m.insert("1643", "cleft");
-        m.insert("1644", "clerk");
-        m.insert("1645", "click");
-        m.insert("1646", "cling");
-        m.insert("1651", "clink");
-        m.insert("1652", "clip");
-        m.insert("1653", "cloak");
-        m.insert("1654", "clock");
-        m.insert("1655", "clone");
-        m.insert("1656", "cloth");
-        m.insert("1661", "cloud");
-        m.insert("1662", "clump");
-        m.insert("1663", "coach");
-        m.insert("1664", "coast");
-        m.insert("1665", "coat");
-        m.insert("1666", "cod");
-        m.insert("2111", "coil");
-        m.insert("2112", "coke");
-        m.insert("2113", "cola");
-        m.insert("2114", "cold");
-        m.insert("2115", "colt");
-        m.insert("2116", "coma");
-        m.insert("2121", "come");
-        m.insert("2122", "comic");
-        m.insert("2123", "comma");
-        m.insert("2124", "cone");
-        m.insert("2125", "cope");
-        m.insert("2126", "copy");
-        m.insert("2131", "coral");
-        m.insert("2132", "cork");
-        m.insert("2133", "cost");
-        m.insert("2134", "cot");
-        m.insert("2135", "couch");
-        m.insert("2136", "cough");
-        m.insert("2141", "cover");
-        m.insert("2142", "cozy");
-        m.insert("2143", "craft");
-        m.insert("2144", "cramp");
-        m.insert("2145", "crane");
-        m.insert("2146", "crank");
-        m.insert("2151", "crate");
-        m.insert("2152", "crave");
-        m.insert("2153", "crawl");
-        m.insert("2154", "crazy");
-        m.insert("2155", "creme");
-        m.insert("2156", "crepe");
-        m.insert("2161", "crept");
-        m.insert("2162", "crib");
-        m.insert("2163", "cried");
-        m.insert("2164", "crisp");
-        m.insert("2165", "crook");
-        m.insert("2166", "crop");
-        m.insert("2211", "cross");
-        m.insert("2212", "crowd");
-        m.insert("2213", "crown");
-        m.insert("2214", "crumb");
-        m.insert("2215", "crush");
-        m.insert("2216", "crust");
-        m.insert("2221", "cub");
-        m.insert("2222", "cult");
-        m.insert("2223", "cupid");
-        m.insert("2224", "cure");
-        m.insert("2225", "curl");
-        m.insert("2226", "curry");
-        m.insert("2231", "curse");
-        m.insert("2232", "curve");
-        m.insert("2233", "curvy");
-        m.insert("2234", "cushy");
-        m.insert("2235", "cut");
-        m.insert("2236", "cycle");
-        m.insert("2241", "dab");
-        m.insert("2242", "dad");
-        m.insert("2243", "daily");
-        m.insert("2244", "dairy");
-        m.insert("2245", "daisy");
-        m.insert("2246", "dance");
-        m.insert("2251", "dandy");
-        m.insert("2252", "darn");
-        m.insert("2253", "dart");
-        m.insert("2254", "dash");
-        m.insert("2255", "data");
-        m.insert("2256", "date");
-        m.insert("2261", "dawn");
-        m.insert("2262", "deaf");
-        m.insert("2263", "deal");
-        m.insert("2264", "dean");
-        m.insert("2265", "debit");
-        m.insert("2266", "debt");
-        m.insert("2311", "debug");
-        m.insert("2312", "decaf");
-        m.insert("2313", "decal");
-        m.insert("2314", "decay");
-        m.insert("2315", "deck");
-        m.insert("2316", "decor");
-        m.insert("2321", "decoy");
-        m.insert("2322", "deed");
-        m.insert("2323", "delay");
-        m.insert("2324", "denim");
-        m.insert("2325", "dense");
-        m.insert("2326", "dent");
-        m.insert("2331", "depth");
-        m.insert("2332", "derby");
-        m.insert("2333", "desk");
-        m.insert("2334", "dial");
-        m.insert("2335", "diary");
-        m.insert("2336", "dice");
-        m.insert("2341", "dig");
-        m.insert("2342", "dill");
-        m.insert("2343", "dime");
-        m.insert("2344", "dimly");
-        m.insert("2345", "diner");
-        m.insert("2346", "dingy");
-        m.insert("2351", "disco");
-        m.insert("2352", "dish");
-        m.insert("2353", "disk");
-        m.insert("2354", "ditch");
-        m.insert("2355", "ditzy");
-        m.insert("2356", "dizzy");
-        m.insert("2361", "dock");
-        m.insert("2362", "dodge");
-        m.insert("2363", "doing");
-        m.insert("2364", "doll");
-        m.insert("2365", "dome");
-        m.insert("2366", "donor");
-        m.insert("2411", "donut");
-        m.insert("2412", "dose");
-        m.insert("2413", "dot");
-        m.insert("2414", "dove");
-        m.insert("2415", "down");
-        m.insert("2416", "dowry");
-        m.insert("2421", "doze");
-        m.insert("2422", "drab");
-        m.insert("2423", "drama");
-        m.insert("2424", "drank");
-        m.insert("2425", "draw");
-        m.insert("2426", "dress");
-        m.insert("2431", "dried");
-        m.insert("2432", "drift");
-        m.insert("2433", "drill");
-        m.insert("2434", "drive");
-        m.insert("2435", "drone");
-        m.insert("2436", "droop");
-        m.insert("2441", "drove");
-        m.insert("2442", "drown");
-        m.insert("2443", "drum");
-        m.insert("2444", "dry");
-        m.insert("2445", "duck");
-        m.insert("2446", "duct");
-        m.insert("2451", "dude");
-        m.insert("2452", "dug");
-        m.insert("2453", "duke");
-        m.insert("2454", "duo");
-        m.insert("2455", "dusk");
-        m.insert("2456", "dust");
-        m.insert("2461", "duty");
-        m.insert("2462", "dwarf");
-        m.insert("2463", "dwell");
-        m.insert("2464", "eagle");
-        m.insert("2465", "early");
-        m.insert("2466", "earth");
-        m.insert("2511", "easel");
-        m.insert("2512", "east");
-        m.insert("2513", "eaten");
-        m.insert("2514", "eats");
-        m.insert("2515", "ebay");
-        m.insert("2516", "ebony");
-        m.insert("2521", "ebook");
-        m.insert("2522", "echo");
-        m.insert("2523", "edge");
-        m.insert("2524", "eel");
-        m.insert("2525", "eject");
-        m.insert("2526", "elbow");
-        m.insert("2531", "elder");
-        m.insert("2532", "elf");
-        m.insert("2533", "elk");
-        m.insert("2534", "elm");
-        m.insert("2535", "elope");
-        m.insert("2536", "elude");
-        m.insert("2541", "elves");
-        m.insert("2542", "email");
-        m.insert("2543", "emit");
-        m.insert("2544", "empty");
-        m.insert("2545", "emu");
-        m.insert("2546", "enter");
-        m.insert("2551", "entry");
-        m.insert("2552", "envoy");
-        m.insert("2553", "equal");
-        m.insert("2554", "erase");
-        m.insert("2555", "error");
-        m.insert("2556", "erupt");
-        m.insert("2561", "essay");
-        m.insert("2562", "etch");
-        m.insert("2563", "evade");
-        m.insert("2564", "even");
-        m.insert("2565", "evict");
-        m.insert("2566", "evil");
-        m.insert("2611", "evoke");
-        m.insert("2612", "exact");
-        m.insert("2613", "exit");
-        m.insert("2614", "fable");
-        m.insert("2615", "faced");
-        m.insert("2616", "fact");
-        m.insert("2621", "fade");
-        m.insert("2622", "fall");
-        m.insert("2623", "false");
-        m.insert("2624", "fancy");
-        m.insert("2625", "fang");
-        m.insert("2626", "fax");
-        m.insert("2631", "feast");
-        m.insert("2632", "feed");
-        m.insert("2633", "femur");
-        m.insert("2634", "fence");
-        m.insert("2635", "fend");
-        m.insert("2636", "ferry");
-        m.insert("2641", "fetal");
-        m.insert("2642", "fetch");
-        m.insert("2643", "fever");
-        m.insert("2644", "fiber");
-        m.insert("2645", "fifth");
-        m.insert("2646", "fifty");
-        m.insert("2651", "film");
-        m.insert("2652", "filth");
-        m.insert("2653", "final");
-        m.insert("2654", "finch");
-        m.insert("2655", "fit");
-        m.insert("2656", "five");
-        m.insert("2661", "flag");
-        m.insert("2662", "flaky");
-        m.insert("2663", "flame");
-        m.insert("2664", "flap");
-        m.insert("2665", "flask");
-        m.insert("2666", "fled");
-        m.insert("3111", "flick");
-        m.insert("3112", "fling");
-        m.insert("3113", "flint");
-        m.insert("3114", "flip");
-        m.insert("3115", "flirt");
-        m.insert("3116", "float");
-        m.insert("3121", "flock");
-        m.insert("3122", "flop");
-        m.insert("3123", "floss");
-        m.insert("3124", "flyer");
-        m.insert("3125", "foam");
-        m.insert("3126", "foe");
-        m.insert("3131", "fog");
-        m.insert("3132", "foil");
-        m.insert("3133", "folic");
-        m.insert("3134", "folk");
-        m.insert("3135", "food");
-        m.insert("3136", "fool");
-        m.insert("3141", "found");
-        m.insert("3142", "fox");
-        m.insert("3143", "foyer");
-        m.insert("3144", "frail");
-        m.insert("3145", "frame");
-        m.insert("3146", "fray");
-        m.insert("3151", "fresh");
-        m.insert("3152", "fried");
-        m.insert("3153", "frill");
-        m.insert("3154", "frisk");
-        m.insert("3155", "from");
-        m.insert("3156", "front");
-        m.insert("3161", "frost");
-        m.insert("3162", "froth");
-        m.insert("3163", "frown");
-        m.insert("3164", "froze");
-        m.insert("3165", "fruit");
-        m.insert("3166", "gag");
-        m.insert("3211", "gains");
-        m.insert("3212", "gala");
-        m.insert("3213", "game");
-        m.insert("3214", "gap");
-        m.insert("3215", "gas");
-        m.insert("3216", "gave");
-        m.insert("3221", "gear");
-        m.insert("3222", "gecko");
-        m.insert("3223", "geek");
-        m.insert("3224", "gem");
-        m.insert("3225", "genre");
-        m.insert("3226", "gift");
-        m.insert("3231", "gig");
-        m.insert("3232", "gills");
-        m.insert("3233", "given");
-        m.insert("3234", "giver");
-        m.insert("3235", "glad");
-        m.insert("3236", "glass");
-        m.insert("3241", "glide");
-        m.insert("3242", "gloss");
-        m.insert("3243", "glove");
-        m.insert("3244", "glow");
-        m.insert("3245", "glue");
-        m.insert("3246", "goal");
-        m.insert("3251", "going");
-        m.insert("3252", "golf");
-        m.insert("3253", "gong");
-        m.insert("3254", "good");
-        m.insert("3255", "gooey");
-        m.insert("3256", "goofy");
-        m.insert("3261", "gore");
-        m.insert("3262", "gown");
-        m.insert("3263", "grab");
-        m.insert("3264", "grain");
-        m.insert("3265", "grant");
-        m.insert("3266", "grape");
-        m.insert("3311", "graph");
-        m.insert("3312", "grasp");
-        m.insert("3313", "grass");
-        m.insert("3314", "grave");
-        m.insert("3315", "gravy");
-        m.insert("3316", "gray");
-        m.insert("3321", "green");
-        m.insert("3322", "greet");
-        m.insert("3323", "grew");
-        m.insert("3324", "grid");
-        m.insert("3325", "grief");
-        m.insert("3326", "grill");
-        m.insert("3331", "grip");
-        m.insert("3332", "grit");
-        m.insert("3333", "groom");
-        m.insert("3334", "grope");
-        m.insert("3335", "growl");
-        m.insert("3336", "grub");
-        m.insert("3341", "grunt");
-        m.insert("3342", "guide");
-        m.insert("3343", "gulf");
-        m.insert("3344", "gulp");
-        m.insert("3345", "gummy");
-        m.insert("3346", "guru");
-        m.insert("3351", "gush");
-        m.insert("3352", "gut");
-        m.insert("3353", "guy");
-        m.insert("3354", "habit");
-        m.insert("3355", "half");
-        m.insert("3356", "halo");
-        m.insert("3361", "halt");
-        m.insert("3362", "happy");
-        m.insert("3363", "harm");
-        m.insert("3364", "hash");
-        m.insert("3365", "hasty");
-        m.insert("3366", "hatch");
-        m.insert("3411", "hate");
-        m.insert("3412", "haven");
-        m.insert("3413", "hazel");
-        m.insert("3414", "hazy");
-        m.insert("3415", "heap");
-        m.insert("3416", "heat");
-        m.insert("3421", "heave");
-        m.insert("3422", "hedge");
-        m.insert("3423", "hefty");
-        m.insert("3424", "help");
-        m.insert("3425", "herbs");
-        m.insert("3426", "hers");
-        m.insert("3431", "hub");
-        m.insert("3432", "hug");
-        m.insert("3433", "hula");
-        m.insert("3434", "hull");
-        m.insert("3435", "human");
-        m.insert("3436", "humid");
-        m.insert("3441", "hump");
-        m.insert("3442", "hung");
-        m.insert("3443", "hunk");
-        m.insert("3444", "hunt");
-        m.insert("3445", "hurry");
-        m.insert("3446", "hurt");
-        m.insert("3451", "hush");
-        m.insert("3452", "hut");
-        m.insert("3453", "ice");
-        m.insert("3454", "icing");
-        m.insert("3455", "icon");
-        m.insert("3456", "icy");
-        m.insert("3461", "igloo");
-        m.insert("3462", "image");
-        m.insert("3463", "ion");
-        m.insert("3464", "iron");
-        m.insert("3465", "islam");
-        m.insert("3466", "issue");
-        m.insert("3511", "item");
-        m.insert("3512", "ivory");
-        m.insert("3513", "ivy");
-        m.insert("3514", "jab");
-        m.insert("3515", "jam");
-        m.insert("3516", "jaws");
-        m.insert("3521", "jazz");
-        m.insert("3522", "jeep");
-        m.insert("3523", "jelly");
-        m.insert("3524", "jet");
-        m.insert("3525", "jiffy");
-        m.insert("3526", "job");
-        m.insert("3531", "jog");
-        m.insert("3532", "jolly");
-        m.insert("3533", "jolt");
-        m.insert("3534", "jot");
-        m.insert("3535", "joy");
-        m.insert("3536", "judge");
-        m.insert("3541", "juice");
-        m.insert("3542", "juicy");
-        m.insert("3543", "july");
-        m.insert("3544", "jumbo");
-        m.insert("3545", "jump");
-        m.insert("3546", "junky");
-        m.insert("3551", "juror");
-        m.insert("3552", "jury");
-        m.insert("3553", "keep");
-        m.insert("3554", "keg");
-        m.insert("3555", "kept");
-        m.insert("3556", "kick");
-        m.insert("3561", "kilt");
-        m.insert("3562", "king");
-        m.insert("3563", "kite");
-        m.insert("3564", "kitty");
-        m.insert("3565", "kiwi");
-        m.insert("3566", "knee");
-        m.insert("3611", "knelt");
-        m.insert("3612", "koala");
-        m.insert("3613", "kung");
-        m.insert("3614", "ladle");
-        m.insert("3615", "lady");
-        m.insert("3616", "lair");
-        m.insert("3621", "lake");
-        m.insert("3622", "lance");
-        m.insert("3623", "land");
-        m.insert("3624", "lapel");
-        m.insert("3625", "large");
-        m.insert("3626", "lash");
-        m.insert("3631", "lasso");
-        m.insert("3632", "last");
-        m.insert("3633", "latch");
-        m.insert("3634", "late");
-        m.insert("3635", "lazy");
-        m.insert("3636", "left");
-        m.insert("3641", "legal");
-        m.insert("3642", "lemon");
-        m.insert("3643", "lend");
-        m.insert("3644", "lens");
-        m.insert("3645", "lent");
-        m.insert("3646", "level");
-        m.insert("3651", "lever");
-        m.insert("3652", "lid");
-        m.insert("3653", "life");
-        m.insert("3654", "lift");
-        m.insert("3655", "lilac");
-        m.insert("3656", "lily");
-        m.insert("3661", "limb");
-        m.insert("3662", "limes");
-        m.insert("3663", "line");
-        m.insert("3664", "lint");
-        m.insert("3665", "lion");
-        m.insert("3666", "lip");
-        m.insert("4111", "list");
-        m.insert("4112", "lived");
-        m.insert("4113", "liver");
-        m.insert("4114", "lunar");
-        m.insert("4115", "lunch");
-        m.insert("4116", "lung");
-        m.insert("4121", "lurch");
-        m.insert("4122", "lure");
-        m.insert("4123", "lurk");
-        m.insert("4124", "lying");
-        m.insert("4125", "lyric");
-        m.insert("4126", "mace");
-        m.insert("4131", "maker");
-        m.insert("4132", "malt");
-        m.insert("4133", "mama");
-        m.insert("4134", "mango");
-        m.insert("4135", "manor");
-        m.insert("4136", "many");
-        m.insert("4141", "map");
-        m.insert("4142", "march");
-        m.insert("4143", "mardi");
-        m.insert("4144", "marry");
-        m.insert("4145", "mash");
-        m.insert("4146", "match");
-        m.insert("4151", "mate");
-        m.insert("4152", "math");
-        m.insert("4153", "moan");
-        m.insert("4154", "mocha");
-        m.insert("4155", "moist");
-        m.insert("4156", "mold");
-        m.insert("4161", "mom");
-        m.insert("4162", "moody");
-        m.insert("4163", "mop");
-        m.insert("4164", "morse");
-        m.insert("4165", "most");
-        m.insert("4166", "motor");
-        m.insert("4211", "motto");
-        m.insert("4212", "mount");
-        m.insert("4213", "mouse");
-        m.insert("4214", "mousy");
-        m.insert("4215", "mouth");
-        m.insert("4216", "move");
-        m.insert("4221", "movie");
-        m.insert("4222", "mower");
-        m.insert("4223", "mud");
-        m.insert("4224", "mug");
-        m.insert("4225", "mulch");
-        m.insert("4226", "mule");
-        m.insert("4231", "mull");
-        m.insert("4232", "mumbo");
-        m.insert("4233", "mummy");
-        m.insert("4234", "mural");
-        m.insert("4235", "muse");
-        m.insert("4236", "music");
-        m.insert("4241", "musky");
-        m.insert("4242", "mute");
-        m.insert("4243", "nacho");
-        m.insert("4244", "nag");
-        m.insert("4245", "nail");
-        m.insert("4246", "name");
-        m.insert("4251", "nanny");
-        m.insert("4252", "nap");
-        m.insert("4253", "navy");
-        m.insert("4254", "near");
-        m.insert("4255", "neat");
-        m.insert("4256", "neon");
-        m.insert("4261", "nerd");
-        m.insert("4262", "nest");
-        m.insert("4263", "net");
-        m.insert("4264", "next");
-        m.insert("4265", "niece");
-        m.insert("4266", "ninth");
-        m.insert("4311", "nutty");
-        m.insert("4312", "oak");
-        m.insert("4313", "oasis");
-        m.insert("4314", "oat");
-        m.insert("4315", "ocean");
-        m.insert("4316", "oil");
-        m.insert("4321", "old");
-        m.insert("4322", "olive");
-        m.insert("4323", "omen");
-        m.insert("4324", "onion");
-        m.insert("4325", "only");
-        m.insert("4326", "ooze");
-        m.insert("4331", "opal");
-        m.insert("4332", "open");
-        m.insert("4333", "opera");
-        m.insert("4334", "opt");
-        m.insert("4335", "otter");
-        m.insert("4336", "ouch");
-        m.insert("4341", "ounce");
-        m.insert("4342", "outer");
-        m.insert("4343", "oval");
-        m.insert("4344", "oven");
-        m.insert("4345", "owl");
-        m.insert("4346", "ozone");
-        m.insert("4351", "pace");
-        m.insert("4352", "pagan");
-        m.insert("4353", "pager");
-        m.insert("4354", "palm");
-        m.insert("4355", "panda");
-        m.insert("4356", "panic");
-        m.insert("4361", "pants");
-        m.insert("4362", "panty");
-        m.insert("4363", "paper");
-        m.insert("4364", "park");
-        m.insert("4365", "party");
-        m.insert("4366", "pasta");
-        m.insert("4411", "patch");
-        m.insert("4412", "path");
-        m.insert("4413", "patio");
-        m.insert("4414", "payer");
-        m.insert("4415", "pecan");
-        m.insert("4416", "penny");
-        m.insert("4421", "pep");
-        m.insert("4422", "perch");
-        m.insert("4423", "perky");
-        m.insert("4424", "perm");
-        m.insert("4425", "pest");
-        m.insert("4426", "petal");
-        m.insert("4431", "petri");
-        m.insert("4432", "petty");
-        m.insert("4433", "photo");
-        m.insert("4434", "plank");
-        m.insert("4435", "plant");
-        m.insert("4436", "plaza");
-        m.insert("4441", "plead");
-        m.insert("4442", "plot");
-        m.insert("4443", "plow");
-        m.insert("4444", "pluck");
-        m.insert("4445", "plug");
-        m.insert("4446", "plus");
-        m.insert("4451", "poach");
-        m.insert("4452", "pod");
-        m.insert("4453", "poem");
-        m.insert("4454", "poet");
-        m.insert("4455", "pogo");
-        m.insert("4456", "point");
-        m.insert("4461", "poise");
-        m.insert("4462", "poker");
-        m.insert("4463", "polar");
-        m.insert("4464", "polio");
-        m.insert("4465", "polka");
-        m.insert("4466", "polo");
-        m.insert("4511", "pond");
-        m.insert("4512", "pony");
-        m.insert("4513", "poppy");
-        m.insert("4514", "pork");
-        m.insert("4515", "poser");
-        m.insert("4516", "pouch");
-        m.insert("4521", "pound");
-        m.insert("4522", "pout");
-        m.insert("4523", "power");
-        m.insert("4524", "prank");
-        m.insert("4525", "press");
-        m.insert("4526", "print");
-        m.insert("4531", "prior");
-        m.insert("4532", "prism");
-        m.insert("4533", "prize");
-        m.insert("4534", "probe");
-        m.insert("4535", "prong");
-        m.insert("4536", "proof");
-        m.insert("4541", "props");
-        m.insert("4542", "prude");
-        m.insert("4543", "prune");
-        m.insert("4544", "pry");
-        m.insert("4545", "pug");
-        m.insert("4546", "pull");
-        m.insert("4551", "pulp");
-        m.insert("4552", "pulse");
-        m.insert("4553", "puma");
-        m.insert("4554", "punch");
-        m.insert("4555", "punk");
-        m.insert("4556", "pupil");
-        m.insert("4561", "puppy");
-        m.insert("4562", "purr");
-        m.insert("4563", "purse");
-        m.insert("4564", "push");
-        m.insert("4565", "putt");
-        m.insert("4566", "quack");
-        m.insert("4611", "quake");
-        m.insert("4612", "query");
-        m.insert("4613", "quiet");
-        m.insert("4614", "quill");
-        m.insert("4615", "quilt");
-        m.insert("4616", "quit");
-        m.insert("4621", "quota");
-        m.insert("4622", "quote");
-        m.insert("4623", "rabid");
-        m.insert("4624", "race");
-        m.insert("4625", "rack");
-        m.insert("4626", "radar");
-        m.insert("4631", "radio");
-        m.insert("4632", "raft");
-        m.insert("4633", "rage");
-        m.insert("4634", "raid");
-        m.insert("4635", "rail");
-        m.insert("4636", "rake");
-        m.insert("4641", "rally");
-        m.insert("4642", "ramp");
-        m.insert("4643", "ranch");
-        m.insert("4644", "range");
-        m.insert("4645", "rank");
-        m.insert("4646", "rant");
-        m.insert("4651", "rash");
-        m.insert("4652", "raven");
-        m.insert("4653", "reach");
-        m.insert("4654", "react");
-        m.insert("4655", "ream");
-        m.insert("4656", "rebel");
-        m.insert("4661", "recap");
-        m.insert("4662", "relax");
-        m.insert("4663", "relay");
-        m.insert("4664", "relic");
-        m.insert("4665", "remix");
-        m.insert("4666", "repay");
-        m.insert("5111", "repel");
-        m.insert("5112", "reply");
-        m.insert("5113", "rerun");
-        m.insert("5114", "reset");
-        m.insert("5115", "rhyme");
-        m.insert("5116", "rice");
-        m.insert("5121", "rich");
-        m.insert("5122", "ride");
-        m.insert("5123", "rigid");
-        m.insert("5124", "rigor");
-        m.insert("5125", "rinse");
-        m.insert("5126", "riot");
-        m.insert("5131", "ripen");
-        m.insert("5132", "rise");
-        m.insert("5133", "risk");
-        m.insert("5134", "ritzy");
-        m.insert("5135", "rival");
-        m.insert("5136", "river");
-        m.insert("5141", "roast");
-        m.insert("5142", "robe");
-        m.insert("5143", "robin");
-        m.insert("5144", "rock");
-        m.insert("5145", "rogue");
-        m.insert("5146", "roman");
-        m.insert("5151", "romp");
-        m.insert("5152", "rope");
-        m.insert("5153", "rover");
-        m.insert("5154", "royal");
-        m.insert("5155", "ruby");
-        m.insert("5156", "rug");
-        m.insert("5161", "ruin");
-        m.insert("5162", "rule");
-        m.insert("5163", "runny");
-        m.insert("5164", "rush");
-        m.insert("5165", "rust");
-        m.insert("5166", "rut");
-        m.insert("5211", "sadly");
-        m.insert("5212", "sage");
-        m.insert("5213", "said");
-        m.insert("5214", "saint");
-        m.insert("5215", "salad");
-        m.insert("5216", "salon");
-        m.insert("5221", "salsa");
-        m.insert("5222", "salt");
-        m.insert("5223", "same");
-        m.insert("5224", "sandy");
-        m.insert("5225", "santa");
-        m.insert("5226", "satin");
-        m.insert("5231", "sauna");
-        m.insert("5232", "saved");
-        m.insert("5233", "savor");
-        m.insert("5234", "sax");
-        m.insert("5235", "say");
-        m.insert("5236", "scale");
-        m.insert("5241", "scam");
-        m.insert("5242", "scan");
-        m.insert("5243", "scare");
-        m.insert("5244", "scarf");
-        m.insert("5245", "scary");
-        m.insert("5246", "scoff");
-        m.insert("5251", "scold");
-        m.insert("5252", "scoop");
-        m.insert("5253", "scoot");
-        m.insert("5254", "scope");
-        m.insert("5255", "score");
-        m.insert("5256", "scorn");
-        m.insert("5261", "scout");
-        m.insert("5262", "scowl");
-        m.insert("5263", "scrap");
-        m.insert("5264", "scrub");
-        m.insert("5265", "scuba");
-        m.insert("5266", "scuff");
-        m.insert("5311", "sect");
-        m.insert("5312", "sedan");
-        m.insert("5313", "self");
-        m.insert("5314", "send");
-        m.insert("5315", "sepia");
-        m.insert("5316", "serve");
-        m.insert("5321", "set");
-        m.insert("5322", "seven");
-        m.insert("5323", "shack");
-        m.insert("5324", "shade");
-        m.insert("5325", "shady");
-        m.insert("5326", "shaft");
-        m.insert("5331", "shaky");
-        m.insert("5332", "sham");
-        m.insert("5333", "shape");
-        m.insert("5334", "share");
-        m.insert("5335", "sharp");
-        m.insert("5336", "shed");
-        m.insert("5341", "sheep");
-        m.insert("5342", "sheet");
-        m.insert("5343", "shelf");
-        m.insert("5344", "shell");
-        m.insert("5345", "shine");
-        m.insert("5346", "shiny");
-        m.insert("5351", "ship");
-        m.insert("5352", "shirt");
-        m.insert("5353", "shock");
-        m.insert("5354", "shop");
-        m.insert("5355", "shore");
-        m.insert("5356", "shout");
-        m.insert("5361", "shove");
-        m.insert("5362", "shown");
-        m.insert("5363", "showy");
-        m.insert("5364", "shred");
-        m.insert("5365", "shrug");
-        m.insert("5366", "shun");
-        m.insert("5411", "shush");
-        m.insert("5412", "shut");
-        m.insert("5413", "shy");
-        m.insert("5414", "sift");
-        m.insert("5415", "silk");
-        m.insert("5416", "silly");
-        m.insert("5421", "silo");
-        m.insert("5422", "sip");
-        m.insert("5423", "siren");
-        m.insert("5424", "sixth");
-        m.insert("5425", "size");
-        m.insert("5426", "skate");
-        m.insert("5431", "skew");
-        m.insert("5432", "skid");
-        m.insert("5433", "skier");
-        m.insert("5434", "skies");
-        m.insert("5435", "skip");
-        m.insert("5436", "skirt");
-        m.insert("5441", "skit");
-        m.insert("5442", "sky");
-        m.insert("5443", "slab");
-        m.insert("5444", "slack");
-        m.insert("5445", "slain");
-        m.insert("5446", "slam");
-        m.insert("5451", "slang");
-        m.insert("5452", "slash");
-        m.insert("5453", "slate");
-        m.insert("5454", "slaw");
-        m.insert("5455", "sled");
-        m.insert("5456", "sleek");
-        m.insert("5461", "sleep");
-        m.insert("5462", "sleet");
-        m.insert("5463", "slept");
-        m.insert("5464", "slice");
-        m.insert("5465", "slick");
-        m.insert("5466", "slimy");
-        m.insert("5511", "sling");
-        m.insert("5512", "slip");
-        m.insert("5513", "slit");
-        m.insert("5514", "slob");
-        m.insert("5515", "slot");
-        m.insert("5516", "slug");
-        m.insert("5521", "slum");
-        m.insert("5522", "slurp");
-        m.insert("5523", "slush");
-        m.insert("5524", "small");
-        m.insert("5525", "smash");
-        m.insert("5526", "smell");
-        m.insert("5531", "smile");
-        m.insert("5532", "smirk");
-        m.insert("5533", "smog");
-        m.insert("5534", "snack");
-        m.insert("5535", "snap");
-        m.insert("5536", "snare");
-        m.insert("5541", "snarl");
-        m.insert("5542", "sneak");
-        m.insert("5543", "sneer");
-        m.insert("5544", "sniff");
-        m.insert("5545", "snore");
-        m.insert("5546", "snort");
-        m.insert("5551", "snout");
-        m.insert("5552", "snowy");
-        m.insert("5553", "snub");
-        m.insert("5554", "snuff");
-        m.insert("5555", "speak");
-        m.insert("5556", "speed");
-        m.insert("5561", "spend");
-        m.insert("5562", "spent");
-        m.insert("5563", "spew");
-        m.insert("5564", "spied");
-        m.insert("5565", "spill");
-        m.insert("5566", "spiny");
-        m.insert("5611", "spoil");
-        m.insert("5612", "spoke");
-        m.insert("5613", "spoof");
-        m.insert("5614", "spool");
-        m.insert("5615", "spoon");
-        m.insert("5616", "sport");
-        m.insert("5621", "spot");
-        m.insert("5622", "spout");
-        m.insert("5623", "spray");
-        m.insert("5624", "spree");
-        m.insert("5625", "spur");
-        m.insert("5626", "squad");
-        m.insert("5631", "squat");
-        m.insert("5632", "squid");
-        m.insert("5633", "stack");
-        m.insert("5634", "staff");
-        m.insert("5635", "stage");
-        m.insert("5636", "stain");
-        m.insert("5641", "stall");
-        m.insert("5642", "stamp");
-        m.insert("5643", "stand");
-        m.insert("5644", "stank");
-        m.insert("5645", "stark");
-        m.insert("5646", "start");
-        m.insert("5651", "stash");
-        m.insert("5652", "state");
-        m.insert("5653", "stays");
-        m.insert("5654", "steam");
-        m.insert("5655", "steep");
-        m.insert("5656", "stem");
-        m.insert("5661", "step");
-        m.insert("5662", "stew");
-        m.insert("5663", "stick");
-        m.insert("5664", "sting");
-        m.insert("5665", "stir");
-        m.insert("5666", "stock");
-        m.insert("6111", "stole");
-        m.insert("6112", "stomp");
-        m.insert("6113", "stony");
-        m.insert("6114", "stood");
-        m.insert("6115", "stool");
-        m.insert("6116", "stoop");
-        m.insert("6121", "stop");
-        m.insert("6122", "storm");
-        m.insert("6123", "stout");
-        m.insert("6124", "stove");
-        m.insert("6125", "straw");
-        m.insert("6126", "stray");
-        m.insert("6131", "strut");
-        m.insert("6132", "stuck");
-        m.insert("6133", "stud");
-        m.insert("6134", "stuff");
-        m.insert("6135", "stump");
-        m.insert("6136", "stung");
-        m.insert("6141", "stunt");
-        m.insert("6142", "suds");
-        m.insert("6143", "sugar");
-        m.insert("6144", "sulk");
-        m.insert("6145", "surf");
-        m.insert("6146", "sushi");
-        m.insert("6151", "swab");
-        m.insert("6152", "swan");
-        m.insert("6153", "swarm");
-        m.insert("6154", "sway");
-        m.insert("6155", "swear");
-        m.insert("6156", "sweat");
-        m.insert("6161", "sweep");
-        m.insert("6162", "swell");
-        m.insert("6163", "swept");
-        m.insert("6164", "swim");
-        m.insert("6165", "swing");
-        m.insert("6166", "swipe");
-        m.insert("6211", "swirl");
-        m.insert("6212", "swoop");
-        m.insert("6213", "swore");
-        m.insert("6214", "syrup");
-        m.insert("6215", "tacky");
-        m.insert("6216", "taco");
-        m.insert("6221", "tag");
-        m.insert("6222", "take");
-        m.insert("6223", "tall");
-        m.insert("6224", "talon");
-        m.insert("6225", "tamer");
-        m.insert("6226", "tank");
-        m.insert("6231", "taper");
-        m.insert("6232", "taps");
-        m.insert("6233", "tarot");
-        m.insert("6234", "tart");
-        m.insert("6235", "task");
-        m.insert("6236", "taste");
-        m.insert("6241", "tasty");
-        m.insert("6242", "taunt");
-        m.insert("6243", "thank");
-        m.insert("6244", "thaw");
-        m.insert("6245", "theft");
-        m.insert("6246", "theme");
-        m.insert("6251", "thigh");
-        m.insert("6252", "thing");
-        m.insert("6253", "think");
-        m.insert("6254", "thong");
-        m.insert("6255", "thorn");
-        m.insert("6256", "those");
-        m.insert("6261", "throb");
-        m.insert("6262", "thud");
-        m.insert("6263", "thumb");
-        m.insert("6264", "thump");
-        m.insert("6265", "thus");
-        m.insert("6266", "tiara");
-        m.insert("6311", "tidal");
-        m.insert("6312", "tidy");
-        m.insert("6313", "tiger");
-        m.insert("6314", "tile");
-        m.insert("6315", "tilt");
-        m.insert("6316", "tint");
-        m.insert("6321", "tiny");
-        m.insert("6322", "trace");
-        m.insert("6323", "track");
-        m.insert("6324", "trade");
-        m.insert("6325", "train");
-        m.insert("6326", "trait");
-        m.insert("6331", "trap");
-        m.insert("6332", "trash");
-        m.insert("6333", "tray");
-        m.insert("6334", "treat");
-        m.insert("6335", "tree");
-        m.insert("6336", "trek");
-        m.insert("6341", "trend");
-        m.insert("6342", "trial");
-        m.insert("6343", "tribe");
-        m.insert("6344", "trick");
-        m.insert("6345", "trio");
-        m.insert("6346", "trout");
-        m.insert("6351", "truce");
-        m.insert("6352", "truck");
-        m.insert("6353", "trump");
-        m.insert("6354", "trunk");
-        m.insert("6355", "try");
-        m.insert("6356", "tug");
-        m.insert("6361", "tulip");
-        m.insert("6362", "tummy");
-        m.insert("6363", "turf");
-        m.insert("6364", "tusk");
-        m.insert("6365", "tutor");
-        m.insert("6366", "tutu");
-        m.insert("6411", "tux");
-        m.insert("6412", "tweak");
-        m.insert("6413", "tweet");
-        m.insert("6414", "twice");
-        m.insert("6415", "twine");
-        m.insert("6416", "twins");
-        m.insert("6421", "twirl");
-        m.insert("6422", "twist");
-        m.insert("6423", "uncle");
-        m.insert("6424", "uncut");
-        m.insert("6425", "undo");
-        m.insert("6426", "unify");
-        m.insert("6431", "union");
-        m.insert("6432", "unit");
-        m.insert("6433", "untie");
-        m.insert("6434", "upon");
-        m.insert("6435", "upper");
-        m.insert("6436", "urban");
-        m.insert("6441", "used");
-        m.insert("6442", "user");
-        m.insert("6443", "usher");
-        m.insert("6444", "utter");
-        m.insert("6445", "value");
-        m.insert("6446", "vapor");
-        m.insert("6451", "vegan");
-        m.insert("6452", "venue");
-        m.insert("6453", "verse");
-        m.insert("6454", "vest");
-        m.insert("6455", "veto");
-        m.insert("6456", "vice");
-        m.insert("6461", "video");
-        m.insert("6462", "view");
-        m.insert("6463", "viral");
-        m.insert("6464", "virus");
-        m.insert("6465", "visa");
-        m.insert("6466", "visor");
-        m.insert("6511", "vixen");
-        m.insert("6512", "vocal");
-        m.insert("6513", "voice");
-        m.insert("6514", "void");
-        m.insert("6515", "volt");
-        m.insert("6516", "voter");
-        m.insert("6521", "vowel");
-        m.insert("6522", "wad");
-        m.insert("6523", "wafer");
-        m.insert("6524", "wager");
-        m.insert("6525", "wages");
-        m.insert("6526", "wagon");
-        m.insert("6531", "wake");
-        m.insert("6532", "walk");
-        m.insert("6533", "wand");
-        m.insert("6534", "wasp");
-        m.insert("6535", "watch");
-        m.insert("6536", "water");
-        m.insert("6541", "wavy");
-        m.insert("6542", "wheat");
-        m.insert("6543", "whiff");
-        m.insert("6544", "whole");
-        m.insert("6545", "whoop");
-        m.insert("6546", "wick");
-        m.insert("6551", "widen");
-        m.insert("6552", "widow");
-        m.insert("6553", "width");
-        m.insert("6554", "wife");
-        m.insert("6555", "wifi");
-        m.insert("6556", "wilt");
-        m.insert("6561", "wimp");
-        m.insert("6562", "wind");
-        m.insert("6563", "wing");
-        m.insert("6564", "wink");
-        m.insert("6565", "wipe");
-        m.insert("6566", "wired");
-        m.insert("6611", "wiry");
-        m.insert("6612", "wise");
-        m.insert("6613", "wish");
-        m.insert("6614", "wispy");
-        m.insert("6615", "wok");
-        m.insert("6616", "wolf");
-        m.insert("6621", "womb");
-        m.insert("6622", "wool");
-        m.insert("6623", "woozy");
-        m.insert("6624", "word");
-        m.insert("6625", "work");
-        m.insert("6626", "worry");
-        m.insert("6631", "wound");
-        m.insert("6632", "woven");
-        m.insert("6633", "wrath");
-        m.insert("6634", "wreck");
-        m.insert("6635", "wrist");
-        m.insert("6636", "xerox");
-        m.insert("6641", "yahoo");
-        m.insert("6642", "yam");
-        m.insert("6643", "yard");
-        m.insert("6644", "year");
-        m.insert("6645", "yeast");
-        m.insert("6646", "yelp");
-        m.insert("6651", "yield");
-        m.insert("6652", "yo-yo");
-        m.insert("6653", "yodel");
-        m.insert("6654", "yoga");
-        m.insert("6655", "yoyo");
-        m.insert("6656", "yummy");
-        m.insert("6661", "zebra");
-        m.insert("6662", "zero");
-        m.insert("6663", "zesty");
-        m.insert("6664", "zippy");
-        m.insert("6665", "zone");
-        m.insert("6666", "zoom");
-        m
-    };
-}
+pub static WORD_LIST: phf::Map<&'static str, &'static str> = phf_map! {
+    "1111" => "acid",
+    "1112" => "acorn",
+    "1113" => "acre",
+    "1114" => "acts",
+    "1115" => "afar",
+    "1116" => "affix",
+    "1121" => "aged",
+    "1122" => "agent",
+    "1123" => "agile",
+    "1124" => "aging",
+    "1125" => "agony",
+    "1126" => "ahead",
+    "1131" => "aide",
+    "1132" => "aids",
+    "1133" => "aim",
+    "1134" => "ajar",
+    "1135" => "alarm",
+    "1136" => "alias",
+    "1141" => "alibi",
+    "1142" => "alien",
+    "1143" => "alike",
+    "1144" => "alive",
+    "1145" => "aloe",
+    "1146" => "aloft",
+    "1151" => "aloha",
+    "1152" => "alone",
+    "1153" => "amend",
+    "1154" => "amino",
+    "1155" => "ample",
+    "1156" => "amuse",
+    "1161" => "angel",
+    "1162" => "anger",
+    "1163" => "angle",
+    "1164" => "ankle",
+    "1165" => "apple",
+    "1166" => "april",
+    "1211" => "apron",
+    "1212" => "aqua",
+    "1213" => "area",
+    "1214" => "arena",
+    "1215" => "argue",
+    "1216" => "arise",
+    "1221" => "armed",
+    "1222" => "armor",
+    "1223" => "army",
+    "1224" => "aroma",
+    "1225" => "array",
+    "1226" => "arson",
+    "1231" => "art",
+    "1232" => "ashen",
+    "1233" => "ashes",
+    "1234" => "atlas",
+    "1235" => "atom",
+    "1236" => "attic",
+    "1241" => "audio",
+    "1242" => "avert",
+    "1243" => "avoid",
+    "1244" => "awake",
+    "1245" => "award",
+    "1246" => "awoke",
+    "1251" => "axis",
+    "1252" => "bacon",
+    "1253" => "badge",
+    "1254" => "bagel",
+    "1255" => "baggy",
+    "1256" => "baked",
+    "1261" => "baker",
+    "1262" => "balmy",
+    "1263" => "banjo",
+    "1264" => "barge",
+    "1265" => "barn",
+    "1266" => "bash",
+    "1311" => "basil",
+    "1312" => "bask",
+    "1313" => "batch",
+    "1314" => "bath",
+    "1315" => "baton",
+    "1316" => "bats",
+    "1321" => "blade",
+    "1322" => "blank",
+    "1323" => "blast",
+    "1324" => "blaze",
+    "1325" => "bleak",
+    "1326" => "blend",
+    "1331" => "bless",
+    "1332" => "blimp",
+    "1333" => "blink",
+    "1334" => "bloat",
+    "1335" => "blob",
+    "1336" => "blog",
+    "1341" => "blot",
+    "1342" => "blunt",
+    "1343" => "blurt",
+    "1344" => "blush",
+    "1345" => "boast",
+    "1346" => "boat",
+    "1351" => "body",
+    "1352" => "boil",
+    "1353" => "bok",
+    "1354" => "bolt",
+    "1355" => "boned",
+    "1356" => "boney",
+    "1361" => "bonus",
+    "1362" => "bony",
+    "1363" => "book",
+    "1364" => "booth",
+    "1365" => "boots",
+    "1366" => "boss",
+    "1411" => "botch",
+    "1412" => "both",
+    "1413" => "boxer",
+    "1414" => "breed",
+    "1415" => "bribe",
+    "1416" => "brick",
+    "1421" => "bride",
+    "1422" => "brim",
+    "1423" => "bring",
+    "1424" => "brink",
+    "1425" => "brisk",
+    "1426" => "broad",
+    "1431" => "broil",
+    "1432" => "broke",
+    "1433" => "brook",
+    "1434" => "broom",
+    "1435" => "brush",
+    "1436" => "buck",
+    "1441" => "bud",
+    "1442" => "buggy",
+    "1443" => "bulge",
+    "1444" => "bulk",
+    "1445" => "bully",
+    "1446" => "bunch",
+    "1451" => "bunny",
+    "1452" => "bunt",
+    "1453" => "bush",
+    "1454" => "bust",
+    "1455" => "busy",
+    "1456" => "buzz",
+    "1461" => "cable",
+    "1462" => "cache",
+    "1463" => "cadet",
+    "1464" => "cage",
+    "1465" => "cake",
+    "1466" => "calm",
+    "1511" => "cameo",
+    "1512" => "canal",
+    "1513" => "candy",
+    "1514" => "cane",
+    "1515" => "canon",
+    "1516" => "cape",
+    "1521" => "card",
+    "1522" => "cargo",
+    "1523" => "carol",
+    "1524" => "carry",
+    "1525" => "carve",
+    "1526" => "case",
+    "1531" => "cash",
+    "1532" => "cause",
+    "1533" => "cedar",
+    "1534" => "chain",
+    "1535" => "chair",
+    "1536" => "chant",
+    "1541" => "chaos",
+    "1542" => "charm",
+    "1543" => "chase",
+    "1544" => "cheek",
+    "1545" => "cheer",
+    "1546" => "chef",
+    "1551" => "chess",
+    "1552" => "chest",
+    "1553" => "chew",
+    "1554" => "chief",
+    "1555" => "chili",
+    "1556" => "chill",
+    "1561" => "chip",
+    "1562" => "chomp",
+    "1563" => "chop",
+    "1564" => "chow",
+    "1565" => "chuck",
+    "1566" => "chump",
+    "1611" => "chunk",
+    "1612" => "churn",
+    "1613" => "chute",
+    "1614" => "cider",
+    "1615" => "cinch",
+    "1616" => "city",
+    "1621" => "civic",
+    "1622" => "civil",
+    "1623" => "clad",
+    "1624" => "claim",
+    "1625" => "clamp",
+    "1626" => "clap",
+    "1631" => "clash",
+    "1632" => "clasp",
+    "1633" => "class",
+    "1634" => "claw",
+    "1635" => "clay",
+    "1636" => "clean",
+    "1641" => "clear",
+    "1642" => "cleat",
+    "1643" => "cleft",
+    "1644" => "clerk",
+    "1645" => "click",
+    "1646" => "cling",
+    "1651" => "clink",
+    "1652" => "clip",
+    "1653" => "cloak",
+    "1654" => "clock",
+    "1655" => "clone",
+    "1656" => "cloth",
+    "1661" => "cloud",
+    "1662" => "clump",
+    "1663" => "coach",
+    "1664" => "coast",
+    "1665" => "coat",
+    "1666" => "cod",
+    "2111" => "coil",
+    "2112" => "coke",
+    "2113" => "cola",
+    "2114" => "cold",
+    "2115" => "colt",
+    "2116" => "coma",
+    "2121" => "come",
+    "2122" => "comic",
+    "2123" => "comma",
+    "2124" => "cone",
+    "2125" => "cope",
+    "2126" => "copy",
+    "2131" => "coral",
+    "2132" => "cork",
+    "2133" => "cost",
+    "2134" => "cot",
+    "2135" => "couch",
+    "2136" => "cough",
+    "2141" => "cover",
+    "2142" => "cozy",
+    "2143" => "craft",
+    "2144" => "cramp",
+    "2145" => "crane",
+    "2146" => "crank",
+    "2151" => "crate",
+    "2152" => "crave",
+    "2153" => "crawl",
+    "2154" => "crazy",
+    "2155" => "creme",
+    "2156" => "crepe",
+    "2161" => "crept",
+    "2162" => "crib",
+    "2163" => "cried",
+    "2164" => "crisp",
+    "2165" => "crook",
+    "2166" => "crop",
+    "2211" => "cross",
+    "2212" => "crowd",
+    "2213" => "crown",
+    "2214" => "crumb",
+    "2215" => "crush",
+    "2216" => "crust",
+    "2221" => "cub",
+    "2222" => "cult",
+    "2223" => "cupid",
+    "2224" => "cure",
+    "2225" => "curl",
+    "2226" => "curry",
+    "2231" => "curse",
+    "2232" => "curve",
+    "2233" => "curvy",
+    "2234" => "cushy",
+    "2235" => "cut",
+    "2236" => "cycle",
+    "2241" => "dab",
+    "2242" => "dad",
+    "2243" => "daily",
+    "2244" => "dairy",
+    "2245" => "daisy",
+    "2246" => "dance",
+    "2251" => "dandy",
+    "2252" => "darn",
+    "2253" => "dart",
+    "2254" => "dash",
+    "2255" => "data",
+    "2256" => "date",
+    "2261" => "dawn",
+    "2262" => "deaf",
+    "2263" => "deal",
+    "2264" => "dean",
+    "2265" => "debit",
+    "2266" => "debt",
+    "2311" => "debug",
+    "2312" => "decaf",
+    "2313" => "decal",
+    "2314" => "decay",
+    "2315" => "deck",
+    "2316" => "decor",
+    "2321" => "decoy",
+    "2322" => "deed",
+    "2323" => "delay",
+    "2324" => "denim",
+    "2325" => "dense",
+    "2326" => "dent",
+    "2331" => "depth",
+    "2332" => "derby",
+    "2333" => "desk",
+    "2334" => "dial",
+    "2335" => "diary",
+    "2336" => "dice",
+    "2341" => "dig",
+    "2342" => "dill",
+    "2343" => "dime",
+    "2344" => "dimly",
+    "2345" => "diner",
+    "2346" => "dingy",
+    "2351" => "disco",
+    "2352" => "dish",
+    "2353" => "disk",
+    "2354" => "ditch",
+    "2355" => "ditzy",
+    "2356" => "dizzy",
+    "2361" => "dock",
+    "2362" => "dodge",
+    "2363" => "doing",
+    "2364" => "doll",
+    "2365" => "dome",
+    "2366" => "donor",
+    "2411" => "donut",
+    "2412" => "dose",
+    "2413" => "dot",
+    "2414" => "dove",
+    "2415" => "down",
+    "2416" => "dowry",
+    "2421" => "doze",
+    "2422" => "drab",
+    "2423" => "drama",
+    "2424" => "drank",
+    "2425" => "draw",
+    "2426" => "dress",
+    "2431" => "dried",
+    "2432" => "drift",
+    "2433" => "drill",
+    "2434" => "drive",
+    "2435" => "drone",
+    "2436" => "droop",
+    "2441" => "drove",
+    "2442" => "drown",
+    "2443" => "drum",
+    "2444" => "dry",
+    "2445" => "duck",
+    "2446" => "duct",
+    "2451" => "dude",
+    "2452" => "dug",
+    "2453" => "duke",
+    "2454" => "duo",
+    "2455" => "dusk",
+    "2456" => "dust",
+    "2461" => "duty",
+    "2462" => "dwarf",
+    "2463" => "dwell",
+    "2464" => "eagle",
+    "2465" => "early",
+    "2466" => "earth",
+    "2511" => "easel",
+    "2512" => "east",
+    "2513" => "eaten",
+    "2514" => "eats",
+    "2515" => "ebay",
+    "2516" => "ebony",
+    "2521" => "ebook",
+    "2522" => "echo",
+    "2523" => "edge",
+    "2524" => "eel",
+    "2525" => "eject",
+    "2526" => "elbow",
+    "2531" => "elder",
+    "2532" => "elf",
+    "2533" => "elk",
+    "2534" => "elm",
+    "2535" => "elope",
+    "2536" => "elude",
+    "2541" => "elves",
+    "2542" => "email",
+    "2543" => "emit",
+    "2544" => "empty",
+    "2545" => "emu",
+    "2546" => "enter",
+    "2551" => "entry",
+    "2552" => "envoy",
+    "2553" => "equal",
+    "2554" => "erase",
+    "2555" => "error",
+    "2556" => "erupt",
+    "2561" => "essay",
+    "2562" => "etch",
+    "2563" => "evade",
+    "2564" => "even",
+    "2565" => "evict",
+    "2566" => "evil",
+    "2611" => "evoke",
+    "2612" => "exact",
+    "2613" => "exit",
+    "2614" => "fable",
+    "2615" => "faced",
+    "2616" => "fact",
+    "2621" => "fade",
+    "2622" => "fall",
+    "2623" => "false",
+    "2624" => "fancy",
+    "2625" => "fang",
+    "2626" => "fax",
+    "2631" => "feast",
+    "2632" => "feed",
+    "2633" => "femur",
+    "2634" => "fence",
+    "2635" => "fend",
+    "2636" => "ferry",
+    "2641" => "fetal",
+    "2642" => "fetch",
+    "2643" => "fever",
+    "2644" => "fiber",
+    "2645" => "fifth",
+    "2646" => "fifty",
+    "2651" => "film",
+    "2652" => "filth",
+    "2653" => "final",
+    "2654" => "finch",
+    "2655" => "fit",
+    "2656" => "five",
+    "2661" => "flag",
+    "2662" => "flaky",
+    "2663" => "flame",
+    "2664" => "flap",
+    "2665" => "flask",
+    "2666" => "fled",
+    "3111" => "flick",
+    "3112" => "fling",
+    "3113" => "flint",
+    "3114" => "flip",
+    "3115" => "flirt",
+    "3116" => "float",
+    "3121" => "flock",
+    "3122" => "flop",
+    "3123" => "floss",
+    "3124" => "flyer",
+    "3125" => "foam",
+    "3126" => "foe",
+    "3131" => "fog",
+    "3132" => "foil",
+    "3133" => "folic",
+    "3134" => "folk",
+    "3135" => "food",
+    "3136" => "fool",
+    "3141" => "found",
+    "3142" => "fox",
+    "3143" => "foyer",
+    "3144" => "frail",
+    "3145" => "frame",
+    "3146" => "fray",
+    "3151" => "fresh",
+    "3152" => "fried",
+    "3153" => "frill",
+    "3154" => "frisk",
+    "3155" => "from",
+    "3156" => "front",
+    "3161" => "frost",
+    "3162" => "froth",
+    "3163" => "frown",
+    "3164" => "froze",
+    "3165" => "fruit",
+    "3166" => "gag",
+    "3211" => "gains",
+    "3212" => "gala",
+    "3213" => "game",
+    "3214" => "gap",
+    "3215" => "gas",
+    "3216" => "gave",
+    "3221" => "gear",
+    "3222" => "gecko",
+    "3223" => "geek",
+    "3224" => "gem",
+    "3225" => "genre",
+    "3226" => "gift",
+    "3231" => "gig",
+    "3232" => "gills",
+    "3233" => "given",
+    "3234" => "giver",
+    "3235" => "glad",
+    "3236" => "glass",
+    "3241" => "glide",
+    "3242" => "gloss",
+    "3243" => "glove",
+    "3244" => "glow",
+    "3245" => "glue",
+    "3246" => "goal",
+    "3251" => "going",
+    "3252" => "golf",
+    "3253" => "gong",
+    "3254" => "good",
+    "3255" => "gooey",
+    "3256" => "goofy",
+    "3261" => "gore",
+    "3262" => "gown",
+    "3263" => "grab",
+    "3264" => "grain",
+    "3265" => "grant",
+    "3266" => "grape",
+    "3311" => "graph",
+    "3312" => "grasp",
+    "3313" => "grass",
+    "3314" => "grave",
+    "3315" => "gravy",
+    "3316" => "gray",
+    "3321" => "green",
+    "3322" => "greet",
+    "3323" => "grew",
+    "3324" => "grid",
+    "3325" => "grief",
+    "3326" => "grill",
+    "3331" => "grip",
+    "3332" => "grit",
+    "3333" => "groom",
+    "3334" => "grope",
+    "3335" => "growl",
+    "3336" => "grub",
+    "3341" => "grunt",
+    "3342" => "guide",
+    "3343" => "gulf",
+    "3344" => "gulp",
+    "3345" => "gummy",
+    "3346" => "guru",
+    "3351" => "gush",
+    "3352" => "gut",
+    "3353" => "guy",
+    "3354" => "habit",
+    "3355" => "half",
+    "3356" => "halo",
+    "3361" => "halt",
+    "3362" => "happy",
+    "3363" => "harm",
+    "3364" => "hash",
+    "3365" => "hasty",
+    "3366" => "hatch",
+    "3411" => "hate",
+    "3412" => "haven",
+    "3413" => "hazel",
+    "3414" => "hazy",
+    "3415" => "heap",
+    "3416" => "heat",
+    "3421" => "heave",
+    "3422" => "hedge",
+    "3423" => "hefty",
+    "3424" => "help",
+    "3425" => "herbs",
+    "3426" => "hers",
+    "3431" => "hub",
+    "3432" => "hug",
+    "3433" => "hula",
+    "3434" => "hull",
+    "3435" => "human",
+    "3436" => "humid",
+    "3441" => "hump",
+    "3442" => "hung",
+    "3443" => "hunk",
+    "3444" => "hunt",
+    "3445" => "hurry",
+    "3446" => "hurt",
+    "3451" => "hush",
+    "3452" => "hut",
+    "3453" => "ice",
+    "3454" => "icing",
+    "3455" => "icon",
+    "3456" => "icy",
+    "3461" => "igloo",
+    "3462" => "image",
+    "3463" => "ion",
+    "3464" => "iron",
+    "3465" => "islam",
+    "3466" => "issue",
+    "3511" => "item",
+    "3512" => "ivory",
+    "3513" => "ivy",
+    "3514" => "jab",
+    "3515" => "jam",
+    "3516" => "jaws",
+    "3521" => "jazz",
+    "3522" => "jeep",
+    "3523" => "jelly",
+    "3524" => "jet",
+    "3525" => "jiffy",
+    "3526" => "job",
+    "3531" => "jog",
+    "3532" => "jolly",
+    "3533" => "jolt",
+    "3534" => "jot",
+    "3535" => "joy",
+    "3536" => "judge",
+    "3541" => "juice",
+    "3542" => "juicy",
+    "3543" => "july",
+    "3544" => "jumbo",
+    "3545" => "jump",
+    "3546" => "junky",
+    "3551" => "juror",
+    "3552" => "jury",
+    "3553" => "keep",
+    "3554" => "keg",
+    "3555" => "kept",
+    "3556" => "kick",
+    "3561" => "kilt",
+    "3562" => "king",
+    "3563" => "kite",
+    "3564" => "kitty",
+    "3565" => "kiwi",
+    "3566" => "knee",
+    "3611" => "knelt",
+    "3612" => "koala",
+    "3613" => "kung",
+    "3614" => "ladle",
+    "3615" => "lady",
+    "3616" => "lair",
+    "3621" => "lake",
+    "3622" => "lance",
+    "3623" => "land",
+    "3624" => "lapel",
+    "3625" => "large",
+    "3626" => "lash",
+    "3631" => "lasso",
+    "3632" => "last",
+    "3633" => "latch",
+    "3634" => "late",
+    "3635" => "lazy",
+    "3636" => "left",
+    "3641" => "legal",
+    "3642" => "lemon",
+    "3643" => "lend",
+    "3644" => "lens",
+    "3645" => "lent",
+    "3646" => "level",
+    "3651" => "lever",
+    "3652" => "lid",
+    "3653" => "life",
+    "3654" => "lift",
+    "3655" => "lilac",
+    "3656" => "lily",
+    "3661" => "limb",
+    "3662" => "limes",
+    "3663" => "line",
+    "3664" => "lint",
+    "3665" => "lion",
+    "3666" => "lip",
+    "4111" => "list",
+    "4112" => "lived",
+    "4113" => "liver",
+    "4114" => "lunar",
+    "4115" => "lunch",
+    "4116" => "lung",
+    "4121" => "lurch",
+    "4122" => "lure",
+    "4123" => "lurk",
+    "4124" => "lying",
+    "4125" => "lyric",
+    "4126" => "mace",
+    "4131" => "maker",
+    "4132" => "malt",
+    "4133" => "mama",
+    "4134" => "mango",
+    "4135" => "manor",
+    "4136" => "many",
+    "4141" => "map",
+    "4142" => "march",
+    "4143" => "mardi",
+    "4144" => "marry",
+    "4145" => "mash",
+    "4146" => "match",
+    "4151" => "mate",
+    "4152" => "math",
+    "4153" => "moan",
+    "4154" => "mocha",
+    "4155" => "moist",
+    "4156" => "mold",
+    "4161" => "mom",
+    "4162" => "moody",
+    "4163" => "mop",
+    "4164" => "morse",
+    "4165" => "most",
+    "4166" => "motor",
+    "4211" => "motto",
+    "4212" => "mount",
+    "4213" => "mouse",
+    "4214" => "mousy",
+    "4215" => "mouth",
+    "4216" => "move",
+    "4221" => "movie",
+    "4222" => "mower",
+    "4223" => "mud",
+    "4224" => "mug",
+    "4225" => "mulch",
+    "4226" => "mule",
+    "4231" => "mull",
+    "4232" => "mumbo",
+    "4233" => "mummy",
+    "4234" => "mural",
+    "4235" => "muse",
+    "4236" => "music",
+    "4241" => "musky",
+    "4242" => "mute",
+    "4243" => "nacho",
+    "4244" => "nag",
+    "4245" => "nail",
+    "4246" => "name",
+    "4251" => "nanny",
+    "4252" => "nap",
+    "4253" => "navy",
+    "4254" => "near",
+    "4255" => "neat",
+    "4256" => "neon",
+    "4261" => "nerd",
+    "4262" => "nest",
+    "4263" => "net",
+    "4264" => "next",
+    "4265" => "niece",
+    "4266" => "ninth",
+    "4311" => "nutty",
+    "4312" => "oak",
+    "4313" => "oasis",
+    "4314" => "oat",
+    "4315" => "ocean",
+    "4316" => "oil",
+    "4321" => "old",
+    "4322" => "olive",
+    "4323" => "omen",
+    "4324" => "onion",
+    "4325" => "only",
+    "4326" => "ooze",
+    "4331" => "opal",
+    "4332" => "open",
+    "4333" => "opera",
+    "4334" => "opt",
+    "4335" => "otter",
+    "4336" => "ouch",
+    "4341" => "ounce",
+    "4342" => "outer",
+    "4343" => "oval",
+    "4344" => "oven",
+    "4345" => "owl",
+    "4346" => "ozone",
+    "4351" => "pace",
+    "4352" => "pagan",
+    "4353" => "pager",
+    "4354" => "palm",
+    "4355" => "panda",
+    "4356" => "panic",
+    "4361" => "pants",
+    "4362" => "panty",
+    "4363" => "paper",
+    "4364" => "park",
+    "4365" => "party",
+    "4366" => "pasta",
+    "4411" => "patch",
+    "4412" => "path",
+    "4413" => "patio",
+    "4414" => "payer",
+    "4415" => "pecan",
+    "4416" => "penny",
+    "4421" => "pep",
+    "4422" => "perch",
+    "4423" => "perky",
+    "4424" => "perm",
+    "4425" => "pest",
+    "4426" => "petal",
+    "4431" => "petri",
+    "4432" => "petty",
+    "4433" => "photo",
+    "4434" => "plank",
+    "4435" => "plant",
+    "4436" => "plaza",
+    "4441" => "plead",
+    "4442" => "plot",
+    "4443" => "plow",
+    "4444" => "pluck",
+    "4445" => "plug",
+    "4446" => "plus",
+    "4451" => "poach",
+    "4452" => "pod",
+    "4453" => "poem",
+    "4454" => "poet",
+    "4455" => "pogo",
+    "4456" => "point",
+    "4461" => "poise",
+    "4462" => "poker",
+    "4463" => "polar",
+    "4464" => "polio",
+    "4465" => "polka",
+    "4466" => "polo",
+    "4511" => "pond",
+    "4512" => "pony",
+    "4513" => "poppy",
+    "4514" => "pork",
+    "4515" => "poser",
+    "4516" => "pouch",
+    "4521" => "pound",
+    "4522" => "pout",
+    "4523" => "power",
+    "4524" => "prank",
+    "4525" => "press",
+    "4526" => "print",
+    "4531" => "prior",
+    "4532" => "prism",
+    "4533" => "prize",
+    "4534" => "probe",
+    "4535" => "prong",
+    "4536" => "proof",
+    "4541" => "props",
+    "4542" => "prude",
+    "4543" => "prune",
+    "4544" => "pry",
+    "4545" => "pug",
+    "4546" => "pull",
+    "4551" => "pulp",
+    "4552" => "pulse",
+    "4553" => "puma",
+    "4554" => "punch",
+    "4555" => "punk",
+    "4556" => "pupil",
+    "4561" => "puppy",
+    "4562" => "purr",
+    "4563" => "purse",
+    "4564" => "push",
+    "4565" => "putt",
+    "4566" => "quack",
+    "4611" => "quake",
+    "4612" => "query",
+    "4613" => "quiet",
+    "4614" => "quill",
+    "4615" => "quilt",
+    "4616" => "quit",
+    "4621" => "quota",
+    "4622" => "quote",
+    "4623" => "rabid",
+    "4624" => "race",
+    "4625" => "rack",
+    "4626" => "radar",
+    "4631" => "radio",
+    "4632" => "raft",
+    "4633" => "rage",
+    "4634" => "raid",
+    "4635" => "rail",
+    "4636" => "rake",
+    "4641" => "rally",
+    "4642" => "ramp",
+    "4643" => "ranch",
+    "4644" => "range",
+    "4645" => "rank",
+    "4646" => "rant",
+    "4651" => "rash",
+    "4652" => "raven",
+    "4653" => "reach",
+    "4654" => "react",
+    "4655" => "ream",
+    "4656" => "rebel",
+    "4661" => "recap",
+    "4662" => "relax",
+    "4663" => "relay",
+    "4664" => "relic",
+    "4665" => "remix",
+    "4666" => "repay",
+    "5111" => "repel",
+    "5112" => "reply",
+    "5113" => "rerun",
+    "5114" => "reset",
+    "5115" => "rhyme",
+    "5116" => "rice",
+    "5121" => "rich",
+    "5122" => "ride",
+    "5123" => "rigid",
+    "5124" => "rigor",
+    "5125" => "rinse",
+    "5126" => "riot",
+    "5131" => "ripen",
+    "5132" => "rise",
+    "5133" => "risk",
+    "5134" => "ritzy",
+    "5135" => "rival",
+    "5136" => "river",
+    "5141" => "roast",
+    "5142" => "robe",
+    "5143" => "robin",
+    "5144" => "rock",
+    "5145" => "rogue",
+    "5146" => "roman",
+    "5151" => "romp",
+    "5152" => "rope",
+    "5153" => "rover",
+    "5154" => "royal",
+    "5155" => "ruby",
+    "5156" => "rug",
+    "5161" => "ruin",
+    "5162" => "rule",
+    "5163" => "runny",
+    "5164" => "rush",
+    "5165" => "rust",
+    "5166" => "rut",
+    "5211" => "sadly",
+    "5212" => "sage",
+    "5213" => "said",
+    "5214" => "saint",
+    "5215" => "salad",
+    "5216" => "salon",
+    "5221" => "salsa",
+    "5222" => "salt",
+    "5223" => "same",
+    "5224" => "sandy",
+    "5225" => "santa",
+    "5226" => "satin",
+    "5231" => "sauna",
+    "5232" => "saved",
+    "5233" => "savor",
+    "5234" => "sax",
+    "5235" => "say",
+    "5236" => "scale",
+    "5241" => "scam",
+    "5242" => "scan",
+    "5243" => "scare",
+    "5244" => "scarf",
+    "5245" => "scary",
+    "5246" => "scoff",
+    "5251" => "scold",
+    "5252" => "scoop",
+    "5253" => "scoot",
+    "5254" => "scope",
+    "5255" => "score",
+    "5256" => "scorn",
+    "5261" => "scout",
+    "5262" => "scowl",
+    "5263" => "scrap",
+    "5264" => "scrub",
+    "5265" => "scuba",
+    "5266" => "scuff",
+    "5311" => "sect",
+    "5312" => "sedan",
+    "5313" => "self",
+    "5314" => "send",
+    "5315" => "sepia",
+    "5316" => "serve",
+    "5321" => "set",
+    "5322" => "seven",
+    "5323" => "shack",
+    "5324" => "shade",
+    "5325" => "shady",
+    "5326" => "shaft",
+    "5331" => "shaky",
+    "5332" => "sham",
+    "5333" => "shape",
+    "5334" => "share",
+    "5335" => "sharp",
+    "5336" => "shed",
+    "5341" => "sheep",
+    "5342" => "sheet",
+    "5343" => "shelf",
+    "5344" => "shell",
+    "5345" => "shine",
+    "5346" => "shiny",
+    "5351" => "ship",
+    "5352" => "shirt",
+    "5353" => "shock",
+    "5354" => "shop",
+    "5355" => "shore",
+    "5356" => "shout",
+    "5361" => "shove",
+    "5362" => "shown",
+    "5363" => "showy",
+    "5364" => "shred",
+    "5365" => "shrug",
+    "5366" => "shun",
+    "5411" => "shush",
+    "5412" => "shut",
+    "5413" => "shy",
+    "5414" => "sift",
+    "5415" => "silk",
+    "5416" => "silly",
+    "5421" => "silo",
+    "5422" => "sip",
+    "5423" => "siren",
+    "5424" => "sixth",
+    "5425" => "size",
+    "5426" => "skate",
+    "5431" => "skew",
+    "5432" => "skid",
+    "5433" => "skier",
+    "5434" => "skies",
+    "5435" => "skip",
+    "5436" => "skirt",
+    "5441" => "skit",
+    "5442" => "sky",
+    "5443" => "slab",
+    "5444" => "slack",
+    "5445" => "slain",
+    "5446" => "slam",
+    "5451" => "slang",
+    "5452" => "slash",
+    "5453" => "slate",
+    "5454" => "slaw",
+    "5455" => "sled",
+    "5456" => "sleek",
+    "5461" => "sleep",
+    "5462" => "sleet",
+    "5463" => "slept",
+    "5464" => "slice",
+    "5465" => "slick",
+    "5466" => "slimy",
+    "5511" => "sling",
+    "5512" => "slip",
+    "5513" => "slit",
+    "5514" => "slob",
+    "5515" => "slot",
+    "5516" => "slug",
+    "5521" => "slum",
+    "5522" => "slurp",
+    "5523" => "slush",
+    "5524" => "small",
+    "5525" => "smash",
+    "5526" => "smell",
+    "5531" => "smile",
+    "5532" => "smirk",
+    "5533" => "smog",
+    "5534" => "snack",
+    "5535" => "snap",
+    "5536" => "snare",
+    "5541" => "snarl",
+    "5542" => "sneak",
+    "5543" => "sneer",
+    "5544" => "sniff",
+    "5545" => "snore",
+    "5546" => "snort",
+    "5551" => "snout",
+    "5552" => "snowy",
+    "5553" => "snub",
+    "5554" => "snuff",
+    "5555" => "speak",
+    "5556" => "speed",
+    "5561" => "spend",
+    "5562" => "spent",
+    "5563" => "spew",
+    "5564" => "spied",
+    "5565" => "spill",
+    "5566" => "spiny",
+    "5611" => "spoil",
+    "5612" => "spoke",
+    "5613" => "spoof",
+    "5614" => "spool",
+    "5615" => "spoon",
+    "5616" => "sport",
+    "5621" => "spot",
+    "5622" => "spout",
+    "5623" => "spray",
+    "5624" => "spree",
+    "5625" => "spur",
+    "5626" => "squad",
+    "5631" => "squat",
+    "5632" => "squid",
+    "5633" => "stack",
+    "5634" => "staff",
+    "5635" => "stage",
+    "5636" => "stain",
+    "5641" => "stall",
+    "5642" => "stamp",
+    "5643" => "stand",
+    "5644" => "stank",
+    "5645" => "stark",
+    "5646" => "start",
+    "5651" => "stash",
+    "5652" => "state",
+    "5653" => "stays",
+    "5654" => "steam",
+    "5655" => "steep",
+    "5656" => "stem",
+    "5661" => "step",
+    "5662" => "stew",
+    "5663" => "stick",
+    "5664" => "sting",
+    "5665" => "stir",
+    "5666" => "stock",
+    "6111" => "stole",
+    "6112" => "stomp",
+    "6113" => "stony",
+    "6114" => "stood",
+    "6115" => "stool",
+    "6116" => "stoop",
+    "6121" => "stop",
+    "6122" => "storm",
+    "6123" => "stout",
+    "6124" => "stove",
+    "6125" => "straw",
+    "6126" => "stray",
+    "6131" => "strut",
+    "6132" => "stuck",
+    "6133" => "stud",
+    "6134" => "stuff",
+    "6135" => "stump",
+    "6136" => "stung",
+    "6141" => "stunt",
+    "6142" => "suds",
+    "6143" => "sugar",
+    "6144" => "sulk",
+    "6145" => "surf",
+    "6146" => "sushi",
+    "6151" => "swab",
+    "6152" => "swan",
+    "6153" => "swarm",
+    "6154" => "sway",
+    "6155" => "swear",
+    "6156" => "sweat",
+    "6161" => "sweep",
+    "6162" => "swell",
+    "6163" => "swept",
+    "6164" => "swim",
+    "6165" => "swing",
+    "6166" => "swipe",
+    "6211" => "swirl",
+    "6212" => "swoop",
+    "6213" => "swore",
+    "6214" => "syrup",
+    "6215" => "tacky",
+    "6216" => "taco",
+    "6221" => "tag",
+    "6222" => "take",
+    "6223" => "tall",
+    "6224" => "talon",
+    "6225" => "tamer",
+    "6226" => "tank",
+    "6231" => "taper",
+    "6232" => "taps",
+    "6233" => "tarot",
+    "6234" => "tart",
+    "6235" => "task",
+    "6236" => "taste",
+    "6241" => "tasty",
+    "6242" => "taunt",
+    "6243" => "thank",
+    "6244" => "thaw",
+    "6245" => "theft",
+    "6246" => "theme",
+    "6251" => "thigh",
+    "6252" => "thing",
+    "6253" => "think",
+    "6254" => "thong",
+    "6255" => "thorn",
+    "6256" => "those",
+    "6261" => "throb",
+    "6262" => "thud",
+    "6263" => "thumb",
+    "6264" => "thump",
+    "6265" => "thus",
+    "6266" => "tiara",
+    "6311" => "tidal",
+    "6312" => "tidy",
+    "6313" => "tiger",
+    "6314" => "tile",
+    "6315" => "tilt",
+    "6316" => "tint",
+    "6321" => "tiny",
+    "6322" => "trace",
+    "6323" => "track",
+    "6324" => "trade",
+    "6325" => "train",
+    "6326" => "trait",
+    "6331" => "trap",
+    "6332" => "trash",
+    "6333" => "tray",
+    "6334" => "treat",
+    "6335" => "tree",
+    "6336" => "trek",
+    "6341" => "trend",
+    "6342" => "trial",
+    "6343" => "tribe",
+    "6344" => "trick",
+    "6345" => "trio",
+    "6346" => "trout",
+    "6351" => "truce",
+    "6352" => "truck",
+    "6353" => "trump",
+    "6354" => "trunk",
+    "6355" => "try",
+    "6356" => "tug",
+    "6361" => "tulip",
+    "6362" => "tummy",
+    "6363" => "turf",
+    "6364" => "tusk",
+    "6365" => "tutor",
+    "6366" => "tutu",
+    "6411" => "tux",
+    "6412" => "tweak",
+    "6413" => "tweet",
+    "6414" => "twice",
+    "6415" => "twine",
+    "6416" => "twins",
+    "6421" => "twirl",
+    "6422" => "twist",
+    "6423" => "uncle",
+    "6424" => "uncut",
+    "6425" => "undo",
+    "6426" => "unify",
+    "6431" => "union",
+    "6432" => "unit",
+    "6433" => "untie",
+    "6434" => "upon",
+    "6435" => "upper",
+    "6436" => "urban",
+    "6441" => "used",
+    "6442" => "user",
+    "6443" => "usher",
+    "6444" => "utter",
+    "6445" => "value",
+    "6446" => "vapor",
+    "6451" => "vegan",
+    "6452" => "venue",
+    "6453" => "verse",
+    "6454" => "vest",
+    "6455" => "veto",
+    "6456" => "vice",
+    "6461" => "video",
+    "6462" => "view",
+    "6463" => "viral",
+    "6464" => "virus",
+    "6465" => "visa",
+    "6466" => "visor",
+    "6511" => "vixen",
+    "6512" => "vocal",
+    "6513" => "voice",
+    "6514" => "void",
+    "6515" => "volt",
+    "6516" => "voter",
+    "6521" => "vowel",
+    "6522" => "wad",
+    "6523" => "wafer",
+    "6524" => "wager",
+    "6525" => "wages",
+    "6526" => "wagon",
+    "6531" => "wake",
+    "6532" => "walk",
+    "6533" => "wand",
+    "6534" => "wasp",
+    "6535" => "watch",
+    "6536" => "water",
+    "6541" => "wavy",
+    "6542" => "wheat",
+    "6543" => "whiff",
+    "6544" => "whole",
+    "6545" => "whoop",
+    "6546" => "wick",
+    "6551" => "widen",
+    "6552" => "widow",
+    "6553" => "width",
+    "6554" => "wife",
+    "6555" => "wifi",
+    "6556" => "wilt",
+    "6561" => "wimp",
+    "6562" => "wind",
+    "6563" => "wing",
+    "6564" => "wink",
+    "6565" => "wipe",
+    "6566" => "wired",
+    "6611" => "wiry",
+    "6612" => "wise",
+    "6613" => "wish",
+    "6614" => "wispy",
+    "6615" => "wok",
+    "6616" => "wolf",
+    "6621" => "womb",
+    "6622" => "wool",
+    "6623" => "woozy",
+    "6624" => "word",
+    "6625" => "work",
+    "6626" => "worry",
+    "6631" => "wound",
+    "6632" => "woven",
+    "6633" => "wrath",
+    "6634" => "wreck",
+    "6635" => "wrist",
+    "6636" => "xerox",
+    "6641" => "yahoo",
+    "6642" => "yam",
+    "6643" => "yard",
+    "6644" => "year",
+    "6645" => "yeast",
+    "6646" => "yelp",
+    "6651" => "yield",
+    "6652" => "yo-yo",
+    "6653" => "yodel",
+    "6654" => "yoga",
+    "6655" => "yoyo",
+    "6656" => "yummy",
+    "6661" => "zebra",
+    "6662" => "zero",
+    "6663" => "zesty",
+    "6664" => "zippy",
+    "6665" => "zone",
+    "6666" => "zoom",
+};
