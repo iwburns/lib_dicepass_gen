@@ -80,7 +80,6 @@ pub fn generate(config: PassGenConfig) -> String {
             Option::from(config.word_count).unwrap_or(defaults::eff_short_2::WORD_COUNT),
             defaults::eff_short_2::ROLLS_PER_WORD,
         ),
-        _ => "".to_string()
     }
 }
 
