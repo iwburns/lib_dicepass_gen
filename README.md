@@ -24,13 +24,12 @@ fn main() {
 Custom length pass-phrases can be generated like so:
 ```rust
 use lib_dicepass_gen::*;
-    
+use lib_dicepass_gen::WordCount::*;
+ 
 fn main() {
-    use lib_dicepass_gen::WordCount::*;
-    
     let config = PassGenConfig::from_eff_long(Custom(7));
     let pass = generate(config);
-    
+ 
     println!("{}", pass);
     // should result in something like:
     // "untouched scouting pronto gauging tripping resume derived"

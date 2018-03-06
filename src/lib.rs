@@ -8,10 +8,9 @@
 //! ### Usage
 //! ```
 //! use lib_dicepass_gen::*;
+//! use lib_dicepass_gen::WordCount::*;
 //!
 //! fn main() {
-//!     use lib_dicepass_gen::WordCount::*;
-//!
 //!     let config = PassGenConfig::from_eff_long(Default);
 //!     let pass = generate(config);
 //!
@@ -22,12 +21,12 @@
 //! }
 //! ```
 //! Custom length pass-phrases can be generated like so:
+//!
 //! ```
 //! use lib_dicepass_gen::*;
+//! use lib_dicepass_gen::WordCount::*;
 //!
 //! fn main() {
-//!     use lib_dicepass_gen::WordCount::*;
-//!
 //!     let config = PassGenConfig::from_eff_long(Custom(7));
 //!     let pass = generate(config);
 //!
@@ -48,8 +47,6 @@
 //! [here](https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases)), but more may be
 //! added in the future.
 //!
-
-#![feature(test)]
 
 #[macro_use]
 extern crate lazy_static;

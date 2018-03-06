@@ -28,6 +28,7 @@ pub enum WordList {
     ///
     /// The EFF's "special" short word list.  This list provides similar entropy per word as
     /// `EffShort` (~10.3 bits/word), but has some extra bonuses:
+    ///
     ///   1. Each word has a prefix of three unique characters
     ///   2. Each word is at least an edit distance of 3 from every other word
     ///
