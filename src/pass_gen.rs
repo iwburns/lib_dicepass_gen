@@ -3,16 +3,48 @@ use rand::{OsRng, Rng};
 
 use defaults;
 
+///
+/// Describes the possible word lists that can be used to generate a passphrase.
+///
 #[derive(Debug, Clone, Copy)]
 pub enum WordList {
+    ///
+    /// The EFF's "long" word list.  This list contains 7776 words each of which provide ~12.9 bits
+    /// of entropy.
+    ///
     EffLong,
+
+    ///
+    /// The EFF's standard "short" word list.  These words are shorter than those contained in
+    /// `EffLong`, but they provide less entropy per word (~10.3 bits/word).  This list contains
+    /// 1296 words.
+    ///
     EffShort,
+
+    ///
+    /// The EFF's "special" short word list.  This list provides similar entropy per word as
+    /// `EffShort` (~10.3 bits/word), but has some extra bonuses:
+    ///   1. Each word has a prefix of three unique characters
+    ///   2. Each word is at least an edit distance of 3 from every other word
+    ///
+    /// This list also contains 1296 words.
+    ///
     EffShort2,
 }
 
+///
+/// Describes the length (in words) of a passphrase to generate.
+///
 #[derive(Debug, Clone, Copy)]
 pub enum WordCount {
+    ///
+    /// This value depends on the `WordList` in use.
+    ///
     Default,
+
+    ///
+    /// Specifies a custom length (in words) to use when generating a passphrase.
+    ///
     Custom(u32),
 }
 
@@ -34,13 +66,27 @@ impl From<Option<u32>> for WordCount {
     }
 }
 
+///
+/// A config object describing the rules for how to generate a passphrase.
+///
 #[derive(Debug, Clone, Copy)]
 pub struct PassGenConfig {
+    ///
+    /// The word list to use when generating the passphrase.
+    ///
     pub word_list: WordList,
+
+    /// The length of the passphrase (in words) to generate.
     pub word_count: WordCount,
 }
 
 impl PassGenConfig {
+    ///
+    /// Helper function for creating `PassGenConfig` objects.
+    ///
+    /// Returns a `PassGenConfig` configured for the `EffLong` word list with `WordCount` number of
+    /// words.
+    ///
     pub fn from_eff_long(word_count: WordCount) -> PassGenConfig {
         PassGenConfig {
             word_list: WordList::EffLong,
@@ -48,6 +94,12 @@ impl PassGenConfig {
         }
     }
 
+    ///
+    /// Helper function for creating `PassGenConfig` objects.
+    ///
+    /// Returns a `PassGenConfig` configured for the `EffShort` word list with `WordCount` number of
+    /// words.
+    ///
     pub fn from_eff_short(word_count: WordCount) -> PassGenConfig {
         PassGenConfig {
             word_list: WordList::EffShort,
@@ -55,6 +107,12 @@ impl PassGenConfig {
         }
     }
 
+    ///
+    /// Helper function for creating `PassGenConfig` objects.
+    ///
+    /// Returns a `PassGenConfig` configured for the `EffShort2` word list with `WordCount` number
+    /// of words.
+    ///
     pub fn from_eff_short_2(word_count: WordCount) -> PassGenConfig {
         PassGenConfig {
             word_list: WordList::EffShort2,
@@ -63,6 +121,19 @@ impl PassGenConfig {
     }
 }
 
+///
+/// Generates and returns a passphrase based on the given `PassGenConfig` object.
+///
+/// ```
+/// use lib_dicepass_gen::*;
+///
+/// // generate a password containing 7 words from the `EffLong` word list
+/// let config = PassGenConfig::from_eff_long(WordCount::Custom(7));
+/// let pass = generate(config);
+///
+/// println!("{}", pass);
+/// ```
+///
 pub fn generate(config: PassGenConfig) -> String {
     match config.word_list {
         WordList::EffLong => generate_passphrase(
