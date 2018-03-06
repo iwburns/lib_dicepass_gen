@@ -51,13 +51,11 @@
 
 #![feature(test)]
 
-#![feature(plugin)]
-#![plugin(phf_macros)]
-extern crate phf;
+#[macro_use]
+extern crate lazy_static;
 extern crate rand;
 
 pub mod defaults;
-
 pub mod pass_gen;
 pub use pass_gen::WordList;
 pub use pass_gen::WordCount;

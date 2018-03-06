@@ -2,7 +2,7 @@
 //! The specification for the `EffShort2` word list.
 //!
 
-extern crate phf;
+use std::collections::HashMap;
 
 ///
 /// The default number of words in a passphrase generated from the `EffShort2` word list.
@@ -14,1304 +14,1308 @@ pub static WORD_COUNT: u32 = 8;
 ///
 pub static ROLLS_PER_WORD: u32 = 4;
 
-///
-/// The `EffShort2` word list represented as a HashMap.
-///
-pub static WORD_LIST: phf::Map<&'static str, &'static str> = phf_map! {
-    "1111" => "aardvark",
-    "1112" => "abandoned",
-    "1113" => "abbreviate",
-    "1114" => "abdomen",
-    "1115" => "abhorrence",
-    "1116" => "abiding",
-    "1121" => "abnormal",
-    "1122" => "abrasion",
-    "1123" => "absorbing",
-    "1124" => "abundant",
-    "1125" => "abyss",
-    "1126" => "academy",
-    "1131" => "accountant",
-    "1132" => "acetone",
-    "1133" => "achiness",
-    "1134" => "acid",
-    "1135" => "acoustics",
-    "1136" => "acquire",
-    "1141" => "acrobat",
-    "1142" => "actress",
-    "1143" => "acuteness",
-    "1144" => "aerosol",
-    "1145" => "aesthetic",
-    "1146" => "affidavit",
-    "1151" => "afloat",
-    "1152" => "afraid",
-    "1153" => "aftershave",
-    "1154" => "again",
-    "1155" => "agency",
-    "1156" => "aggressor",
-    "1161" => "aghast",
-    "1162" => "agitate",
-    "1163" => "agnostic",
-    "1164" => "agonizing",
-    "1165" => "agreeing",
-    "1166" => "aidless",
-    "1211" => "aimlessly",
-    "1212" => "ajar",
-    "1213" => "alarmclock",
-    "1214" => "albatross",
-    "1215" => "alchemy",
-    "1216" => "alfalfa",
-    "1221" => "algae",
-    "1222" => "aliens",
-    "1223" => "alkaline",
-    "1224" => "almanac",
-    "1225" => "alongside",
-    "1226" => "alphabet",
-    "1231" => "already",
-    "1232" => "also",
-    "1233" => "altitude",
-    "1234" => "aluminum",
-    "1235" => "always",
-    "1236" => "amazingly",
-    "1241" => "ambulance",
-    "1242" => "amendment",
-    "1243" => "amiable",
-    "1244" => "ammunition",
-    "1245" => "amnesty",
-    "1246" => "amoeba",
-    "1251" => "amplifier",
-    "1252" => "amuser",
-    "1253" => "anagram",
-    "1254" => "anchor",
-    "1255" => "android",
-    "1256" => "anesthesia",
-    "1261" => "angelfish",
-    "1262" => "animal",
-    "1263" => "anklet",
-    "1264" => "announcer",
-    "1265" => "anonymous",
-    "1266" => "answer",
-    "1311" => "antelope",
-    "1312" => "anxiety",
-    "1313" => "anyplace",
-    "1314" => "aorta",
-    "1315" => "apartment",
-    "1316" => "apnea",
-    "1321" => "apostrophe",
-    "1322" => "apple",
-    "1323" => "apricot",
-    "1324" => "aquamarine",
-    "1325" => "arachnid",
-    "1326" => "arbitrate",
-    "1331" => "ardently",
-    "1332" => "arena",
-    "1333" => "argument",
-    "1334" => "aristocrat",
-    "1335" => "armchair",
-    "1336" => "aromatic",
-    "1341" => "arrowhead",
-    "1342" => "arsonist",
-    "1343" => "artichoke",
-    "1344" => "asbestos",
-    "1345" => "ascend",
-    "1346" => "aseptic",
-    "1351" => "ashamed",
-    "1352" => "asinine",
-    "1353" => "asleep",
-    "1354" => "asocial",
-    "1355" => "asparagus",
-    "1356" => "astronaut",
-    "1361" => "asymmetric",
-    "1362" => "atlas",
-    "1363" => "atmosphere",
-    "1364" => "atom",
-    "1365" => "atrocious",
-    "1366" => "attic",
-    "1411" => "atypical",
-    "1412" => "auctioneer",
-    "1413" => "auditorium",
-    "1414" => "augmented",
-    "1415" => "auspicious",
-    "1416" => "automobile",
-    "1421" => "auxiliary",
-    "1422" => "avalanche",
-    "1423" => "avenue",
-    "1424" => "aviator",
-    "1425" => "avocado",
-    "1426" => "awareness",
-    "1431" => "awhile",
-    "1432" => "awkward",
-    "1433" => "awning",
-    "1434" => "awoke",
-    "1435" => "axially",
-    "1436" => "azalea",
-    "1441" => "babbling",
-    "1442" => "backpack",
-    "1443" => "badass",
-    "1444" => "bagpipe",
-    "1445" => "bakery",
-    "1446" => "balancing",
-    "1451" => "bamboo",
-    "1452" => "banana",
-    "1453" => "barracuda",
-    "1454" => "basket",
-    "1455" => "bathrobe",
-    "1456" => "bazooka",
-    "1461" => "blade",
-    "1462" => "blender",
-    "1463" => "blimp",
-    "1464" => "blouse",
-    "1465" => "blurred",
-    "1466" => "boatyard",
-    "1511" => "bobcat",
-    "1512" => "body",
-    "1513" => "bogusness",
-    "1514" => "bohemian",
-    "1515" => "boiler",
-    "1516" => "bonnet",
-    "1521" => "boots",
-    "1522" => "borough",
-    "1523" => "bossiness",
-    "1524" => "bottle",
-    "1525" => "bouquet",
-    "1526" => "boxlike",
-    "1531" => "breath",
-    "1532" => "briefcase",
-    "1533" => "broom",
-    "1534" => "brushes",
-    "1535" => "bubblegum",
-    "1536" => "buckle",
-    "1541" => "buddhist",
-    "1542" => "buffalo",
-    "1543" => "bullfrog",
-    "1544" => "bunny",
-    "1545" => "busboy",
-    "1546" => "buzzard",
-    "1551" => "cabin",
-    "1552" => "cactus",
-    "1553" => "cadillac",
-    "1554" => "cafeteria",
-    "1555" => "cage",
-    "1556" => "cahoots",
-    "1561" => "cajoling",
-    "1562" => "cakewalk",
-    "1563" => "calculator",
-    "1564" => "camera",
-    "1565" => "canister",
-    "1566" => "capsule",
-    "1611" => "carrot",
-    "1612" => "cashew",
-    "1613" => "cathedral",
-    "1614" => "caucasian",
-    "1615" => "caviar",
-    "1616" => "ceasefire",
-    "1621" => "cedar",
-    "1622" => "celery",
-    "1623" => "cement",
-    "1624" => "census",
-    "1625" => "ceramics",
-    "1626" => "cesspool",
-    "1631" => "chalkboard",
-    "1632" => "cheesecake",
-    "1633" => "chimney",
-    "1634" => "chlorine",
-    "1635" => "chopsticks",
-    "1636" => "chrome",
-    "1641" => "chute",
-    "1642" => "cilantro",
-    "1643" => "cinnamon",
-    "1644" => "circle",
-    "1645" => "cityscape",
-    "1646" => "civilian",
-    "1651" => "clay",
-    "1652" => "clergyman",
-    "1653" => "clipboard",
-    "1654" => "clock",
-    "1655" => "clubhouse",
-    "1656" => "coathanger",
-    "1661" => "cobweb",
-    "1662" => "coconut",
-    "1663" => "codeword",
-    "1664" => "coexistent",
-    "1665" => "coffeecake",
-    "1666" => "cognitive",
-    "2111" => "cohabitate",
-    "2112" => "collarbone",
-    "2113" => "computer",
-    "2114" => "confetti",
-    "2115" => "copier",
-    "2116" => "cornea",
-    "2121" => "cosmetics",
-    "2122" => "cotton",
-    "2123" => "couch",
-    "2124" => "coverless",
-    "2125" => "coyote",
-    "2126" => "coziness",
-    "2131" => "crawfish",
-    "2132" => "crewmember",
-    "2133" => "crib",
-    "2134" => "croissant",
-    "2135" => "crumble",
-    "2136" => "crystal",
-    "2141" => "cubical",
-    "2142" => "cucumber",
-    "2143" => "cuddly",
-    "2144" => "cufflink",
-    "2145" => "cuisine",
-    "2146" => "culprit",
-    "2151" => "cup",
-    "2152" => "curry",
-    "2153" => "cushion",
-    "2154" => "cuticle",
-    "2155" => "cybernetic",
-    "2156" => "cyclist",
-    "2161" => "cylinder",
-    "2162" => "cymbal",
-    "2163" => "cynicism",
-    "2164" => "cypress",
-    "2165" => "cytoplasm",
-    "2166" => "dachshund",
-    "2211" => "daffodil",
-    "2212" => "dagger",
-    "2213" => "dairy",
-    "2214" => "dalmatian",
-    "2215" => "dandelion",
-    "2216" => "dartboard",
-    "2221" => "dastardly",
-    "2222" => "datebook",
-    "2223" => "daughter",
-    "2224" => "dawn",
-    "2225" => "daytime",
-    "2226" => "dazzler",
-    "2231" => "dealer",
-    "2232" => "debris",
-    "2233" => "decal",
-    "2234" => "dedicate",
-    "2235" => "deepness",
-    "2236" => "defrost",
-    "2241" => "degree",
-    "2242" => "dehydrator",
-    "2243" => "deliverer",
-    "2244" => "democrat",
-    "2245" => "dentist",
-    "2246" => "deodorant",
-    "2251" => "depot",
-    "2252" => "deranged",
-    "2253" => "desktop",
-    "2254" => "detergent",
-    "2255" => "device",
-    "2256" => "dexterity",
-    "2261" => "diamond",
-    "2262" => "dibs",
-    "2263" => "dictionary",
-    "2264" => "diffuser",
-    "2265" => "digit",
-    "2266" => "dilated",
-    "2311" => "dimple",
-    "2312" => "dinnerware",
-    "2313" => "dioxide",
-    "2314" => "diploma",
-    "2315" => "directory",
-    "2316" => "dishcloth",
-    "2321" => "ditto",
-    "2322" => "dividers",
-    "2323" => "dizziness",
-    "2324" => "doctor",
-    "2325" => "dodge",
-    "2326" => "doll",
-    "2331" => "dominoes",
-    "2332" => "donut",
-    "2333" => "doorstep",
-    "2334" => "dorsal",
-    "2335" => "double",
-    "2336" => "downstairs",
-    "2341" => "dozed",
-    "2342" => "drainpipe",
-    "2343" => "dresser",
-    "2344" => "driftwood",
-    "2345" => "droppings",
-    "2346" => "drum",
-    "2351" => "dryer",
-    "2352" => "dubiously",
-    "2353" => "duckling",
-    "2354" => "duffel",
-    "2355" => "dugout",
-    "2356" => "dumpster",
-    "2361" => "duplex",
-    "2362" => "durable",
-    "2363" => "dustpan",
-    "2364" => "dutiful",
-    "2365" => "duvet",
-    "2366" => "dwarfism",
-    "2411" => "dwelling",
-    "2412" => "dwindling",
-    "2413" => "dynamite",
-    "2414" => "dyslexia",
-    "2415" => "eagerness",
-    "2416" => "earlobe",
-    "2421" => "easel",
-    "2422" => "eavesdrop",
-    "2423" => "ebook",
-    "2424" => "eccentric",
-    "2425" => "echoless",
-    "2426" => "eclipse",
-    "2431" => "ecosystem",
-    "2432" => "ecstasy",
-    "2433" => "edged",
-    "2434" => "editor",
-    "2435" => "educator",
-    "2436" => "eelworm",
-    "2441" => "eerie",
-    "2442" => "effects",
-    "2443" => "eggnog",
-    "2444" => "egomaniac",
-    "2445" => "ejection",
-    "2446" => "elastic",
-    "2451" => "elbow",
-    "2452" => "elderly",
-    "2453" => "elephant",
-    "2454" => "elfishly",
-    "2455" => "eliminator",
-    "2456" => "elk",
-    "2461" => "elliptical",
-    "2462" => "elongated",
-    "2463" => "elsewhere",
-    "2464" => "elusive",
-    "2465" => "elves",
-    "2466" => "emancipate",
-    "2511" => "embroidery",
-    "2512" => "emcee",
-    "2513" => "emerald",
-    "2514" => "emission",
-    "2515" => "emoticon",
-    "2516" => "emperor",
-    "2521" => "emulate",
-    "2522" => "enactment",
-    "2523" => "enchilada",
-    "2524" => "endorphin",
-    "2525" => "energy",
-    "2526" => "enforcer",
-    "2531" => "engine",
-    "2532" => "enhance",
-    "2533" => "enigmatic",
-    "2534" => "enjoyably",
-    "2535" => "enlarged",
-    "2536" => "enormous",
-    "2541" => "enquirer",
-    "2542" => "enrollment",
-    "2543" => "ensemble",
-    "2544" => "entryway",
-    "2545" => "enunciate",
-    "2546" => "envoy",
-    "2551" => "enzyme",
-    "2552" => "epidemic",
-    "2553" => "equipment",
-    "2554" => "erasable",
-    "2555" => "ergonomic",
-    "2556" => "erratic",
-    "2561" => "eruption",
-    "2562" => "escalator",
-    "2563" => "eskimo",
-    "2564" => "esophagus",
-    "2565" => "espresso",
-    "2566" => "essay",
-    "2611" => "estrogen",
-    "2612" => "etching",
-    "2613" => "eternal",
-    "2614" => "ethics",
-    "2615" => "etiquette",
-    "2616" => "eucalyptus",
-    "2621" => "eulogy",
-    "2622" => "euphemism",
-    "2623" => "euthanize",
-    "2624" => "evacuation",
-    "2625" => "evergreen",
-    "2626" => "evidence",
-    "2631" => "evolution",
-    "2632" => "exam",
-    "2633" => "excerpt",
-    "2634" => "exerciser",
-    "2635" => "exfoliate",
-    "2636" => "exhale",
-    "2641" => "exist",
-    "2642" => "exorcist",
-    "2643" => "explode",
-    "2644" => "exquisite",
-    "2645" => "exterior",
-    "2646" => "exuberant",
-    "2651" => "fabric",
-    "2652" => "factory",
-    "2653" => "faded",
-    "2654" => "failsafe",
-    "2655" => "falcon",
-    "2656" => "family",
-    "2661" => "fanfare",
-    "2662" => "fasten",
-    "2663" => "faucet",
-    "2664" => "favorite",
-    "2665" => "feasibly",
-    "2666" => "february",
-    "3111" => "federal",
-    "3112" => "feedback",
-    "3113" => "feigned",
-    "3114" => "feline",
-    "3115" => "femur",
-    "3116" => "fence",
-    "3121" => "ferret",
-    "3122" => "festival",
-    "3123" => "fettuccine",
-    "3124" => "feudalist",
-    "3125" => "feverish",
-    "3126" => "fiberglass",
-    "3131" => "fictitious",
-    "3132" => "fiddle",
-    "3133" => "figurine",
-    "3134" => "fillet",
-    "3135" => "finalist",
-    "3136" => "fiscally",
-    "3141" => "fixture",
-    "3142" => "flashlight",
-    "3143" => "fleshiness",
-    "3144" => "flight",
-    "3145" => "florist",
-    "3146" => "flypaper",
-    "3151" => "foamless",
-    "3152" => "focus",
-    "3153" => "foggy",
-    "3154" => "folksong",
-    "3155" => "fondue",
-    "3156" => "footpath",
-    "3161" => "fossil",
-    "3162" => "fountain",
-    "3163" => "fox",
-    "3164" => "fragment",
-    "3165" => "freeway",
-    "3166" => "fridge",
-    "3211" => "frosting",
-    "3212" => "fruit",
-    "3213" => "fryingpan",
-    "3214" => "gadget",
-    "3215" => "gainfully",
-    "3216" => "gallstone",
-    "3221" => "gamekeeper",
-    "3222" => "gangway",
-    "3223" => "garlic",
-    "3224" => "gaslight",
-    "3225" => "gathering",
-    "3226" => "gauntlet",
-    "3231" => "gearbox",
-    "3232" => "gecko",
-    "3233" => "gem",
-    "3234" => "generator",
-    "3235" => "geographer",
-    "3236" => "gerbil",
-    "3241" => "gesture",
-    "3242" => "getaway",
-    "3243" => "geyser",
-    "3244" => "ghoulishly",
-    "3245" => "gibberish",
-    "3246" => "giddiness",
-    "3251" => "giftshop",
-    "3252" => "gigabyte",
-    "3253" => "gimmick",
-    "3254" => "giraffe",
-    "3255" => "giveaway",
-    "3256" => "gizmo",
-    "3261" => "glasses",
-    "3262" => "gleeful",
-    "3263" => "glisten",
-    "3264" => "glove",
-    "3265" => "glucose",
-    "3266" => "glycerin",
-    "3311" => "gnarly",
-    "3312" => "gnomish",
-    "3313" => "goatskin",
-    "3314" => "goggles",
-    "3315" => "goldfish",
-    "3316" => "gong",
-    "3321" => "gooey",
-    "3322" => "gorgeous",
-    "3323" => "gosling",
-    "3324" => "gothic",
-    "3325" => "gourmet",
-    "3326" => "governor",
-    "3331" => "grape",
-    "3332" => "greyhound",
-    "3333" => "grill",
-    "3334" => "groundhog",
-    "3335" => "grumbling",
-    "3336" => "guacamole",
-    "3341" => "guerrilla",
-    "3342" => "guitar",
-    "3343" => "gullible",
-    "3344" => "gumdrop",
-    "3345" => "gurgling",
-    "3346" => "gusto",
-    "3351" => "gutless",
-    "3352" => "gymnast",
-    "3353" => "gynecology",
-    "3354" => "gyration",
-    "3355" => "habitat",
-    "3356" => "hacking",
-    "3361" => "haggard",
-    "3362" => "haiku",
-    "3363" => "halogen",
-    "3364" => "hamburger",
-    "3365" => "handgun",
-    "3366" => "happiness",
-    "3411" => "hardhat",
-    "3412" => "hastily",
-    "3413" => "hatchling",
-    "3414" => "haughty",
-    "3415" => "hazelnut",
-    "3416" => "headband",
-    "3421" => "hedgehog",
-    "3422" => "hefty",
-    "3423" => "heinously",
-    "3424" => "helmet",
-    "3425" => "hemoglobin",
-    "3426" => "henceforth",
-    "3431" => "herbs",
-    "3432" => "hesitation",
-    "3433" => "hexagon",
-    "3434" => "hubcap",
-    "3435" => "huddling",
-    "3436" => "huff",
-    "3441" => "hugeness",
-    "3442" => "hullabaloo",
-    "3443" => "human",
-    "3444" => "hunter",
-    "3445" => "hurricane",
-    "3446" => "hushing",
-    "3451" => "hyacinth",
-    "3452" => "hybrid",
-    "3453" => "hydrant",
-    "3454" => "hygienist",
-    "3455" => "hypnotist",
-    "3456" => "ibuprofen",
-    "3461" => "icepack",
-    "3462" => "icing",
-    "3463" => "iconic",
-    "3464" => "identical",
-    "3465" => "idiocy",
-    "3466" => "idly",
-    "3511" => "igloo",
-    "3512" => "ignition",
-    "3513" => "iguana",
-    "3514" => "illuminate",
-    "3515" => "imaging",
-    "3516" => "imbecile",
-    "3521" => "imitator",
-    "3522" => "immigrant",
-    "3523" => "imprint",
-    "3524" => "iodine",
-    "3525" => "ionosphere",
-    "3526" => "ipad",
-    "3531" => "iphone",
-    "3532" => "iridescent",
-    "3533" => "irksome",
-    "3534" => "iron",
-    "3535" => "irrigation",
-    "3536" => "island",
-    "3541" => "isotope",
-    "3542" => "issueless",
-    "3543" => "italicize",
-    "3544" => "itemizer",
-    "3545" => "itinerary",
-    "3546" => "itunes",
-    "3551" => "ivory",
-    "3552" => "jabbering",
-    "3553" => "jackrabbit",
-    "3554" => "jaguar",
-    "3555" => "jailhouse",
-    "3556" => "jalapeno",
-    "3561" => "jamboree",
-    "3562" => "janitor",
-    "3563" => "jarring",
-    "3564" => "jasmine",
-    "3565" => "jaundice",
-    "3566" => "jawbreaker",
-    "3611" => "jaywalker",
-    "3612" => "jazz",
-    "3613" => "jealous",
-    "3614" => "jeep",
-    "3615" => "jelly",
-    "3616" => "jeopardize",
-    "3621" => "jersey",
-    "3622" => "jetski",
-    "3623" => "jezebel",
-    "3624" => "jiffy",
-    "3625" => "jigsaw",
-    "3626" => "jingling",
-    "3631" => "jobholder",
-    "3632" => "jockstrap",
-    "3633" => "jogging",
-    "3634" => "john",
-    "3635" => "joinable",
-    "3636" => "jokingly",
-    "3641" => "journal",
-    "3642" => "jovial",
-    "3643" => "joystick",
-    "3644" => "jubilant",
-    "3645" => "judiciary",
-    "3646" => "juggle",
-    "3651" => "juice",
-    "3652" => "jujitsu",
-    "3653" => "jukebox",
-    "3654" => "jumpiness",
-    "3655" => "junkyard",
-    "3656" => "juror",
-    "3661" => "justifying",
-    "3662" => "juvenile",
-    "3663" => "kabob",
-    "3664" => "kamikaze",
-    "3665" => "kangaroo",
-    "3666" => "karate",
-    "4111" => "kayak",
-    "4112" => "keepsake",
-    "4113" => "kennel",
-    "4114" => "kerosene",
-    "4115" => "ketchup",
-    "4116" => "khaki",
-    "4121" => "kickstand",
-    "4122" => "kilogram",
-    "4123" => "kimono",
-    "4124" => "kingdom",
-    "4125" => "kiosk",
-    "4126" => "kissing",
-    "4131" => "kite",
-    "4132" => "kleenex",
-    "4133" => "knapsack",
-    "4134" => "kneecap",
-    "4135" => "knickers",
-    "4136" => "koala",
-    "4141" => "krypton",
-    "4142" => "laboratory",
-    "4143" => "ladder",
-    "4144" => "lakefront",
-    "4145" => "lantern",
-    "4146" => "laptop",
-    "4151" => "laryngitis",
-    "4152" => "lasagna",
-    "4153" => "latch",
-    "4154" => "laundry",
-    "4155" => "lavender",
-    "4156" => "laxative",
-    "4161" => "lazybones",
-    "4162" => "lecturer",
-    "4163" => "leftover",
-    "4164" => "leggings",
-    "4165" => "leisure",
-    "4166" => "lemon",
-    "4211" => "length",
-    "4212" => "leopard",
-    "4213" => "leprechaun",
-    "4214" => "lettuce",
-    "4215" => "leukemia",
-    "4216" => "levers",
-    "4221" => "lewdness",
-    "4222" => "liability",
-    "4223" => "library",
-    "4224" => "licorice",
-    "4225" => "lifeboat",
-    "4226" => "lightbulb",
-    "4231" => "likewise",
-    "4232" => "lilac",
-    "4233" => "limousine",
-    "4234" => "lint",
-    "4235" => "lioness",
-    "4236" => "lipstick",
-    "4241" => "liquid",
-    "4242" => "listless",
-    "4243" => "litter",
-    "4244" => "liverwurst",
-    "4245" => "lizard",
-    "4246" => "llama",
-    "4251" => "luau",
-    "4252" => "lubricant",
-    "4253" => "lucidity",
-    "4254" => "ludicrous",
-    "4255" => "luggage",
-    "4256" => "lukewarm",
-    "4261" => "lullaby",
-    "4262" => "lumberjack",
-    "4263" => "lunchbox",
-    "4264" => "luridness",
-    "4265" => "luscious",
-    "4266" => "luxurious",
-    "4311" => "lyrics",
-    "4312" => "macaroni",
-    "4313" => "maestro",
-    "4314" => "magazine",
-    "4315" => "mahogany",
-    "4316" => "maimed",
-    "4321" => "majority",
-    "4322" => "makeover",
-    "4323" => "malformed",
-    "4324" => "mammal",
-    "4325" => "mango",
-    "4326" => "mapmaker",
-    "4331" => "marbles",
-    "4332" => "massager",
-    "4333" => "matchstick",
-    "4334" => "maverick",
-    "4335" => "maximum",
-    "4336" => "mayonnaise",
-    "4341" => "moaning",
-    "4342" => "mobilize",
-    "4343" => "moccasin",
-    "4344" => "modify",
-    "4345" => "moisture",
-    "4346" => "molecule",
-    "4351" => "momentum",
-    "4352" => "monastery",
-    "4353" => "moonshine",
-    "4354" => "mortuary",
-    "4355" => "mosquito",
-    "4356" => "motorcycle",
-    "4361" => "mousetrap",
-    "4362" => "movie",
-    "4363" => "mower",
-    "4364" => "mozzarella",
-    "4365" => "muckiness",
-    "4366" => "mudflow",
-    "4411" => "mugshot",
-    "4412" => "mule",
-    "4413" => "mummy",
-    "4414" => "mundane",
-    "4415" => "muppet",
-    "4416" => "mural",
-    "4421" => "mustard",
-    "4422" => "mutation",
-    "4423" => "myriad",
-    "4424" => "myspace",
-    "4425" => "myth",
-    "4426" => "nail",
-    "4431" => "namesake",
-    "4432" => "nanosecond",
-    "4433" => "napkin",
-    "4434" => "narrator",
-    "4435" => "nastiness",
-    "4436" => "natives",
-    "4441" => "nautically",
-    "4442" => "navigate",
-    "4443" => "nearest",
-    "4444" => "nebula",
-    "4445" => "nectar",
-    "4446" => "nefarious",
-    "4451" => "negotiator",
-    "4452" => "neither",
-    "4453" => "nemesis",
-    "4454" => "neoliberal",
-    "4455" => "nephew",
-    "4456" => "nervously",
-    "4461" => "nest",
-    "4462" => "netting",
-    "4463" => "neuron",
-    "4464" => "nevermore",
-    "4465" => "nextdoor",
-    "4466" => "nicotine",
-    "4511" => "niece",
-    "4512" => "nimbleness",
-    "4513" => "nintendo",
-    "4514" => "nirvana",
-    "4515" => "nuclear",
-    "4516" => "nugget",
-    "4521" => "nuisance",
-    "4522" => "nullify",
-    "4523" => "numbing",
-    "4524" => "nuptials",
-    "4525" => "nursery",
-    "4526" => "nutcracker",
-    "4531" => "nylon",
-    "4532" => "oasis",
-    "4533" => "oat",
-    "4534" => "obediently",
-    "4535" => "obituary",
-    "4536" => "object",
-    "4541" => "obliterate",
-    "4542" => "obnoxious",
-    "4543" => "observer",
-    "4544" => "obtain",
-    "4545" => "obvious",
-    "4546" => "occupation",
-    "4551" => "oceanic",
-    "4552" => "octopus",
-    "4553" => "ocular",
-    "4554" => "office",
-    "4555" => "oftentimes",
-    "4556" => "oiliness",
-    "4561" => "ointment",
-    "4562" => "older",
-    "4563" => "olympics",
-    "4564" => "omissible",
-    "4565" => "omnivorous",
-    "4566" => "oncoming",
-    "4611" => "onion",
-    "4612" => "onlooker",
-    "4613" => "onstage",
-    "4614" => "onward",
-    "4615" => "onyx",
-    "4616" => "oomph",
-    "4621" => "opaquely",
-    "4622" => "opera",
-    "4623" => "opium",
-    "4624" => "opossum",
-    "4625" => "opponent",
-    "4626" => "optical",
-    "4631" => "opulently",
-    "4632" => "oscillator",
-    "4633" => "osmosis",
-    "4634" => "ostrich",
-    "4635" => "otherwise",
-    "4636" => "ought",
-    "4641" => "outhouse",
-    "4642" => "ovation",
-    "4643" => "oven",
-    "4644" => "owlish",
-    "4645" => "oxford",
-    "4646" => "oxidize",
-    "4651" => "oxygen",
-    "4652" => "oyster",
-    "4653" => "ozone",
-    "4654" => "pacemaker",
-    "4655" => "padlock",
-    "4656" => "pageant",
-    "4661" => "pajamas",
-    "4662" => "palm",
-    "4663" => "pamphlet",
-    "4664" => "pantyhose",
-    "4665" => "paprika",
-    "4666" => "parakeet",
-    "5111" => "passport",
-    "5112" => "patio",
-    "5113" => "pauper",
-    "5114" => "pavement",
-    "5115" => "payphone",
-    "5116" => "pebble",
-    "5121" => "peculiarly",
-    "5122" => "pedometer",
-    "5123" => "pegboard",
-    "5124" => "pelican",
-    "5125" => "penguin",
-    "5126" => "peony",
-    "5131" => "pepperoni",
-    "5132" => "peroxide",
-    "5133" => "pesticide",
-    "5134" => "petroleum",
-    "5135" => "pewter",
-    "5136" => "pharmacy",
-    "5141" => "pheasant",
-    "5142" => "phonebook",
-    "5143" => "phrasing",
-    "5144" => "physician",
-    "5145" => "plank",
-    "5146" => "pledge",
-    "5151" => "plotted",
-    "5152" => "plug",
-    "5153" => "plywood",
-    "5154" => "pneumonia",
-    "5155" => "podiatrist",
-    "5156" => "poetic",
-    "5161" => "pogo",
-    "5162" => "poison",
-    "5163" => "poking",
-    "5164" => "policeman",
-    "5165" => "poncho",
-    "5166" => "popcorn",
-    "5211" => "porcupine",
-    "5212" => "postcard",
-    "5213" => "poultry",
-    "5214" => "powerboat",
-    "5215" => "prairie",
-    "5216" => "pretzel",
-    "5221" => "princess",
-    "5222" => "propeller",
-    "5223" => "prune",
-    "5224" => "pry",
-    "5225" => "pseudo",
-    "5226" => "psychopath",
-    "5231" => "publisher",
-    "5232" => "pucker",
-    "5233" => "pueblo",
-    "5234" => "pulley",
-    "5235" => "pumpkin",
-    "5236" => "punchbowl",
-    "5241" => "puppy",
-    "5242" => "purse",
-    "5243" => "pushup",
-    "5244" => "putt",
-    "5245" => "puzzle",
-    "5246" => "pyramid",
-    "5251" => "python",
-    "5252" => "quarters",
-    "5253" => "quesadilla",
-    "5254" => "quilt",
-    "5255" => "quote",
-    "5256" => "racoon",
-    "5261" => "radish",
-    "5262" => "ragweed",
-    "5263" => "railroad",
-    "5264" => "rampantly",
-    "5265" => "rancidity",
-    "5266" => "rarity",
-    "5311" => "raspberry",
-    "5312" => "ravishing",
-    "5313" => "rearrange",
-    "5314" => "rebuilt",
-    "5315" => "receipt",
-    "5316" => "reentry",
-    "5321" => "refinery",
-    "5322" => "register",
-    "5323" => "rehydrate",
-    "5324" => "reimburse",
-    "5325" => "rejoicing",
-    "5326" => "rekindle",
-    "5331" => "relic",
-    "5332" => "remote",
-    "5333" => "renovator",
-    "5334" => "reopen",
-    "5335" => "reporter",
-    "5336" => "request",
-    "5341" => "rerun",
-    "5342" => "reservoir",
-    "5343" => "retriever",
-    "5344" => "reunion",
-    "5345" => "revolver",
-    "5346" => "rewrite",
-    "5351" => "rhapsody",
-    "5352" => "rhetoric",
-    "5353" => "rhino",
-    "5354" => "rhubarb",
-    "5355" => "rhyme",
-    "5356" => "ribbon",
-    "5361" => "riches",
-    "5362" => "ridden",
-    "5363" => "rigidness",
-    "5364" => "rimmed",
-    "5365" => "riptide",
-    "5366" => "riskily",
-    "5411" => "ritzy",
-    "5412" => "riverboat",
-    "5413" => "roamer",
-    "5414" => "robe",
-    "5415" => "rocket",
-    "5416" => "romancer",
-    "5421" => "ropelike",
-    "5422" => "rotisserie",
-    "5423" => "roundtable",
-    "5424" => "royal",
-    "5425" => "rubber",
-    "5426" => "rudderless",
-    "5431" => "rugby",
-    "5432" => "ruined",
-    "5433" => "rulebook",
-    "5434" => "rummage",
-    "5435" => "running",
-    "5436" => "rupture",
-    "5441" => "rustproof",
-    "5442" => "sabotage",
-    "5443" => "sacrifice",
-    "5444" => "saddlebag",
-    "5445" => "saffron",
-    "5446" => "sainthood",
-    "5451" => "saltshaker",
-    "5452" => "samurai",
-    "5453" => "sandworm",
-    "5454" => "sapphire",
-    "5455" => "sardine",
-    "5456" => "sassy",
-    "5461" => "satchel",
-    "5462" => "sauna",
-    "5463" => "savage",
-    "5464" => "saxophone",
-    "5465" => "scarf",
-    "5466" => "scenario",
-    "5511" => "schoolbook",
-    "5512" => "scientist",
-    "5513" => "scooter",
-    "5514" => "scrapbook",
-    "5515" => "sculpture",
-    "5516" => "scythe",
-    "5521" => "secretary",
-    "5522" => "sedative",
-    "5523" => "segregator",
-    "5524" => "seismology",
-    "5525" => "selected",
-    "5526" => "semicolon",
-    "5531" => "senator",
-    "5532" => "septum",
-    "5533" => "sequence",
-    "5534" => "serpent",
-    "5535" => "sesame",
-    "5536" => "settler",
-    "5541" => "severely",
-    "5542" => "shack",
-    "5543" => "shelf",
-    "5544" => "shirt",
-    "5545" => "shovel",
-    "5546" => "shrimp",
-    "5551" => "shuttle",
-    "5552" => "shyness",
-    "5553" => "siamese",
-    "5554" => "sibling",
-    "5555" => "siesta",
-    "5556" => "silicon",
-    "5561" => "simmering",
-    "5562" => "singles",
-    "5563" => "sisterhood",
-    "5564" => "sitcom",
-    "5565" => "sixfold",
-    "5566" => "sizable",
-    "5611" => "skateboard",
-    "5612" => "skeleton",
-    "5613" => "skies",
-    "5614" => "skulk",
-    "5615" => "skylight",
-    "5616" => "slapping",
-    "5621" => "sled",
-    "5622" => "slingshot",
-    "5623" => "sloth",
-    "5624" => "slumbering",
-    "5625" => "smartphone",
-    "5626" => "smelliness",
-    "5631" => "smitten",
-    "5632" => "smokestack",
-    "5633" => "smudge",
-    "5634" => "snapshot",
-    "5635" => "sneezing",
-    "5636" => "sniff",
-    "5641" => "snowsuit",
-    "5642" => "snugness",
-    "5643" => "speakers",
-    "5644" => "sphinx",
-    "5645" => "spider",
-    "5646" => "splashing",
-    "5651" => "sponge",
-    "5652" => "sprout",
-    "5653" => "spur",
-    "5654" => "spyglass",
-    "5655" => "squirrel",
-    "5656" => "statue",
-    "5661" => "steamboat",
-    "5662" => "stingray",
-    "5663" => "stopwatch",
-    "5664" => "strawberry",
-    "5665" => "student",
-    "5666" => "stylus",
-    "6111" => "suave",
-    "6112" => "subway",
-    "6113" => "suction",
-    "6114" => "suds",
-    "6115" => "suffocate",
-    "6116" => "sugar",
-    "6121" => "suitcase",
-    "6122" => "sulphur",
-    "6123" => "superstore",
-    "6124" => "surfer",
-    "6125" => "sushi",
-    "6126" => "swan",
-    "6131" => "sweatshirt",
-    "6132" => "swimwear",
-    "6133" => "sword",
-    "6134" => "sycamore",
-    "6135" => "syllable",
-    "6136" => "symphony",
-    "6141" => "synagogue",
-    "6142" => "syringes",
-    "6143" => "systemize",
-    "6144" => "tablespoon",
-    "6145" => "taco",
-    "6146" => "tadpole",
-    "6151" => "taekwondo",
-    "6152" => "tagalong",
-    "6153" => "takeout",
-    "6154" => "tallness",
-    "6155" => "tamale",
-    "6156" => "tanned",
-    "6161" => "tapestry",
-    "6162" => "tarantula",
-    "6163" => "tastebud",
-    "6164" => "tattoo",
-    "6165" => "tavern",
-    "6166" => "thaw",
-    "6211" => "theater",
-    "6212" => "thimble",
-    "6213" => "thorn",
-    "6214" => "throat",
-    "6215" => "thumb",
-    "6216" => "thwarting",
-    "6221" => "tiara",
-    "6222" => "tidbit",
-    "6223" => "tiebreaker",
-    "6224" => "tiger",
-    "6225" => "timid",
-    "6226" => "tinsel",
-    "6231" => "tiptoeing",
-    "6232" => "tirade",
-    "6233" => "tissue",
-    "6234" => "tractor",
-    "6235" => "tree",
-    "6236" => "tripod",
-    "6241" => "trousers",
-    "6242" => "trucks",
-    "6243" => "tryout",
-    "6244" => "tubeless",
-    "6245" => "tuesday",
-    "6246" => "tugboat",
-    "6251" => "tulip",
-    "6252" => "tumbleweed",
-    "6253" => "tupperware",
-    "6254" => "turtle",
-    "6255" => "tusk",
-    "6256" => "tutorial",
-    "6261" => "tuxedo",
-    "6262" => "tweezers",
-    "6263" => "twins",
-    "6264" => "tyrannical",
-    "6265" => "ultrasound",
-    "6266" => "umbrella",
-    "6311" => "umpire",
-    "6312" => "unarmored",
-    "6313" => "unbuttoned",
-    "6314" => "uncle",
-    "6315" => "underwear",
-    "6316" => "unevenness",
-    "6321" => "unflavored",
-    "6322" => "ungloved",
-    "6323" => "unhinge",
-    "6324" => "unicycle",
-    "6325" => "unjustly",
-    "6326" => "unknown",
-    "6331" => "unlocking",
-    "6332" => "unmarked",
-    "6333" => "unnoticed",
-    "6334" => "unopened",
-    "6335" => "unpaved",
-    "6336" => "unquenched",
-    "6341" => "unroll",
-    "6342" => "unscrewing",
-    "6343" => "untied",
-    "6344" => "unusual",
-    "6345" => "unveiled",
-    "6346" => "unwrinkled",
-    "6351" => "unyielding",
-    "6352" => "unzip",
-    "6353" => "upbeat",
-    "6354" => "upcountry",
-    "6355" => "update",
-    "6356" => "upfront",
-    "6361" => "upgrade",
-    "6362" => "upholstery",
-    "6363" => "upkeep",
-    "6364" => "upload",
-    "6365" => "uppercut",
-    "6366" => "upright",
-    "6411" => "upstairs",
-    "6412" => "uptown",
-    "6413" => "upwind",
-    "6414" => "uranium",
-    "6415" => "urban",
-    "6416" => "urchin",
-    "6421" => "urethane",
-    "6422" => "urgent",
-    "6423" => "urologist",
-    "6424" => "username",
-    "6425" => "usher",
-    "6426" => "utensil",
-    "6431" => "utility",
-    "6432" => "utmost",
-    "6433" => "utopia",
-    "6434" => "utterance",
-    "6435" => "vacuum",
-    "6436" => "vagrancy",
-    "6441" => "valuables",
-    "6442" => "vanquished",
-    "6443" => "vaporizer",
-    "6444" => "varied",
-    "6445" => "vaseline",
-    "6446" => "vegetable",
-    "6451" => "vehicle",
-    "6452" => "velcro",
-    "6453" => "vendor",
-    "6454" => "vertebrae",
-    "6455" => "vestibule",
-    "6456" => "veteran",
-    "6461" => "vexingly",
-    "6462" => "vicinity",
-    "6463" => "videogame",
-    "6464" => "viewfinder",
-    "6465" => "vigilante",
-    "6466" => "village",
-    "6511" => "vinegar",
-    "6512" => "violin",
-    "6513" => "viperfish",
-    "6514" => "virus",
-    "6515" => "visor",
-    "6516" => "vitamins",
-    "6521" => "vivacious",
-    "6522" => "vixen",
-    "6523" => "vocalist",
-    "6524" => "vogue",
-    "6525" => "voicemail",
-    "6526" => "volleyball",
-    "6531" => "voucher",
-    "6532" => "voyage",
-    "6533" => "vulnerable",
-    "6534" => "waffle",
-    "6535" => "wagon",
-    "6536" => "wakeup",
-    "6541" => "walrus",
-    "6542" => "wanderer",
-    "6543" => "wasp",
-    "6544" => "water",
-    "6545" => "waving",
-    "6546" => "wheat",
-    "6551" => "whisper",
-    "6552" => "wholesaler",
-    "6553" => "wick",
-    "6554" => "widow",
-    "6555" => "wielder",
-    "6556" => "wifeless",
-    "6561" => "wikipedia",
-    "6562" => "wildcat",
-    "6563" => "windmill",
-    "6564" => "wipeout",
-    "6565" => "wired",
-    "6566" => "wishbone",
-    "6611" => "wizardry",
-    "6612" => "wobbliness",
-    "6613" => "wolverine",
-    "6614" => "womb",
-    "6615" => "woolworker",
-    "6616" => "workbasket",
-    "6621" => "wound",
-    "6622" => "wrangle",
-    "6623" => "wreckage",
-    "6624" => "wristwatch",
-    "6625" => "wrongdoing",
-    "6626" => "xerox",
-    "6631" => "xylophone",
-    "6632" => "yacht",
-    "6633" => "yahoo",
-    "6634" => "yard",
-    "6635" => "yearbook",
-    "6636" => "yesterday",
-    "6641" => "yiddish",
-    "6642" => "yield",
-    "6643" => "yo-yo",
-    "6644" => "yodel",
-    "6645" => "yogurt",
-    "6646" => "yuppie",
-    "6651" => "zealot",
-    "6652" => "zebra",
-    "6653" => "zeppelin",
-    "6654" => "zestfully",
-    "6655" => "zigzagged",
-    "6656" => "zillion",
-    "6661" => "zipping",
-    "6662" => "zirconium",
-    "6663" => "zodiac",
-    "6664" => "zombie",
-    "6665" => "zookeeper",
-    "6666" => "zucchini",
-};
+lazy_static! {
+    ///
+    /// The `EffShort2` word list represented as a HashMap.
+    ///
+    pub static ref WORD_LIST: HashMap<&'static str, &'static str> = {
+        let mut m = HashMap::new();
+        m.insert("1111", "aardvark");
+        m.insert("1112", "abandoned");
+        m.insert("1113", "abbreviate");
+        m.insert("1114", "abdomen");
+        m.insert("1115", "abhorrence");
+        m.insert("1116", "abiding");
+        m.insert("1121", "abnormal");
+        m.insert("1122", "abrasion");
+        m.insert("1123", "absorbing");
+        m.insert("1124", "abundant");
+        m.insert("1125", "abyss");
+        m.insert("1126", "academy");
+        m.insert("1131", "accountant");
+        m.insert("1132", "acetone");
+        m.insert("1133", "achiness");
+        m.insert("1134", "acid");
+        m.insert("1135", "acoustics");
+        m.insert("1136", "acquire");
+        m.insert("1141", "acrobat");
+        m.insert("1142", "actress");
+        m.insert("1143", "acuteness");
+        m.insert("1144", "aerosol");
+        m.insert("1145", "aesthetic");
+        m.insert("1146", "affidavit");
+        m.insert("1151", "afloat");
+        m.insert("1152", "afraid");
+        m.insert("1153", "aftershave");
+        m.insert("1154", "again");
+        m.insert("1155", "agency");
+        m.insert("1156", "aggressor");
+        m.insert("1161", "aghast");
+        m.insert("1162", "agitate");
+        m.insert("1163", "agnostic");
+        m.insert("1164", "agonizing");
+        m.insert("1165", "agreeing");
+        m.insert("1166", "aidless");
+        m.insert("1211", "aimlessly");
+        m.insert("1212", "ajar");
+        m.insert("1213", "alarmclock");
+        m.insert("1214", "albatross");
+        m.insert("1215", "alchemy");
+        m.insert("1216", "alfalfa");
+        m.insert("1221", "algae");
+        m.insert("1222", "aliens");
+        m.insert("1223", "alkaline");
+        m.insert("1224", "almanac");
+        m.insert("1225", "alongside");
+        m.insert("1226", "alphabet");
+        m.insert("1231", "already");
+        m.insert("1232", "also");
+        m.insert("1233", "altitude");
+        m.insert("1234", "aluminum");
+        m.insert("1235", "always");
+        m.insert("1236", "amazingly");
+        m.insert("1241", "ambulance");
+        m.insert("1242", "amendment");
+        m.insert("1243", "amiable");
+        m.insert("1244", "ammunition");
+        m.insert("1245", "amnesty");
+        m.insert("1246", "amoeba");
+        m.insert("1251", "amplifier");
+        m.insert("1252", "amuser");
+        m.insert("1253", "anagram");
+        m.insert("1254", "anchor");
+        m.insert("1255", "android");
+        m.insert("1256", "anesthesia");
+        m.insert("1261", "angelfish");
+        m.insert("1262", "animal");
+        m.insert("1263", "anklet");
+        m.insert("1264", "announcer");
+        m.insert("1265", "anonymous");
+        m.insert("1266", "answer");
+        m.insert("1311", "antelope");
+        m.insert("1312", "anxiety");
+        m.insert("1313", "anyplace");
+        m.insert("1314", "aorta");
+        m.insert("1315", "apartment");
+        m.insert("1316", "apnea");
+        m.insert("1321", "apostrophe");
+        m.insert("1322", "apple");
+        m.insert("1323", "apricot");
+        m.insert("1324", "aquamarine");
+        m.insert("1325", "arachnid");
+        m.insert("1326", "arbitrate");
+        m.insert("1331", "ardently");
+        m.insert("1332", "arena");
+        m.insert("1333", "argument");
+        m.insert("1334", "aristocrat");
+        m.insert("1335", "armchair");
+        m.insert("1336", "aromatic");
+        m.insert("1341", "arrowhead");
+        m.insert("1342", "arsonist");
+        m.insert("1343", "artichoke");
+        m.insert("1344", "asbestos");
+        m.insert("1345", "ascend");
+        m.insert("1346", "aseptic");
+        m.insert("1351", "ashamed");
+        m.insert("1352", "asinine");
+        m.insert("1353", "asleep");
+        m.insert("1354", "asocial");
+        m.insert("1355", "asparagus");
+        m.insert("1356", "astronaut");
+        m.insert("1361", "asymmetric");
+        m.insert("1362", "atlas");
+        m.insert("1363", "atmosphere");
+        m.insert("1364", "atom");
+        m.insert("1365", "atrocious");
+        m.insert("1366", "attic");
+        m.insert("1411", "atypical");
+        m.insert("1412", "auctioneer");
+        m.insert("1413", "auditorium");
+        m.insert("1414", "augmented");
+        m.insert("1415", "auspicious");
+        m.insert("1416", "automobile");
+        m.insert("1421", "auxiliary");
+        m.insert("1422", "avalanche");
+        m.insert("1423", "avenue");
+        m.insert("1424", "aviator");
+        m.insert("1425", "avocado");
+        m.insert("1426", "awareness");
+        m.insert("1431", "awhile");
+        m.insert("1432", "awkward");
+        m.insert("1433", "awning");
+        m.insert("1434", "awoke");
+        m.insert("1435", "axially");
+        m.insert("1436", "azalea");
+        m.insert("1441", "babbling");
+        m.insert("1442", "backpack");
+        m.insert("1443", "badass");
+        m.insert("1444", "bagpipe");
+        m.insert("1445", "bakery");
+        m.insert("1446", "balancing");
+        m.insert("1451", "bamboo");
+        m.insert("1452", "banana");
+        m.insert("1453", "barracuda");
+        m.insert("1454", "basket");
+        m.insert("1455", "bathrobe");
+        m.insert("1456", "bazooka");
+        m.insert("1461", "blade");
+        m.insert("1462", "blender");
+        m.insert("1463", "blimp");
+        m.insert("1464", "blouse");
+        m.insert("1465", "blurred");
+        m.insert("1466", "boatyard");
+        m.insert("1511", "bobcat");
+        m.insert("1512", "body");
+        m.insert("1513", "bogusness");
+        m.insert("1514", "bohemian");
+        m.insert("1515", "boiler");
+        m.insert("1516", "bonnet");
+        m.insert("1521", "boots");
+        m.insert("1522", "borough");
+        m.insert("1523", "bossiness");
+        m.insert("1524", "bottle");
+        m.insert("1525", "bouquet");
+        m.insert("1526", "boxlike");
+        m.insert("1531", "breath");
+        m.insert("1532", "briefcase");
+        m.insert("1533", "broom");
+        m.insert("1534", "brushes");
+        m.insert("1535", "bubblegum");
+        m.insert("1536", "buckle");
+        m.insert("1541", "buddhist");
+        m.insert("1542", "buffalo");
+        m.insert("1543", "bullfrog");
+        m.insert("1544", "bunny");
+        m.insert("1545", "busboy");
+        m.insert("1546", "buzzard");
+        m.insert("1551", "cabin");
+        m.insert("1552", "cactus");
+        m.insert("1553", "cadillac");
+        m.insert("1554", "cafeteria");
+        m.insert("1555", "cage");
+        m.insert("1556", "cahoots");
+        m.insert("1561", "cajoling");
+        m.insert("1562", "cakewalk");
+        m.insert("1563", "calculator");
+        m.insert("1564", "camera");
+        m.insert("1565", "canister");
+        m.insert("1566", "capsule");
+        m.insert("1611", "carrot");
+        m.insert("1612", "cashew");
+        m.insert("1613", "cathedral");
+        m.insert("1614", "caucasian");
+        m.insert("1615", "caviar");
+        m.insert("1616", "ceasefire");
+        m.insert("1621", "cedar");
+        m.insert("1622", "celery");
+        m.insert("1623", "cement");
+        m.insert("1624", "census");
+        m.insert("1625", "ceramics");
+        m.insert("1626", "cesspool");
+        m.insert("1631", "chalkboard");
+        m.insert("1632", "cheesecake");
+        m.insert("1633", "chimney");
+        m.insert("1634", "chlorine");
+        m.insert("1635", "chopsticks");
+        m.insert("1636", "chrome");
+        m.insert("1641", "chute");
+        m.insert("1642", "cilantro");
+        m.insert("1643", "cinnamon");
+        m.insert("1644", "circle");
+        m.insert("1645", "cityscape");
+        m.insert("1646", "civilian");
+        m.insert("1651", "clay");
+        m.insert("1652", "clergyman");
+        m.insert("1653", "clipboard");
+        m.insert("1654", "clock");
+        m.insert("1655", "clubhouse");
+        m.insert("1656", "coathanger");
+        m.insert("1661", "cobweb");
+        m.insert("1662", "coconut");
+        m.insert("1663", "codeword");
+        m.insert("1664", "coexistent");
+        m.insert("1665", "coffeecake");
+        m.insert("1666", "cognitive");
+        m.insert("2111", "cohabitate");
+        m.insert("2112", "collarbone");
+        m.insert("2113", "computer");
+        m.insert("2114", "confetti");
+        m.insert("2115", "copier");
+        m.insert("2116", "cornea");
+        m.insert("2121", "cosmetics");
+        m.insert("2122", "cotton");
+        m.insert("2123", "couch");
+        m.insert("2124", "coverless");
+        m.insert("2125", "coyote");
+        m.insert("2126", "coziness");
+        m.insert("2131", "crawfish");
+        m.insert("2132", "crewmember");
+        m.insert("2133", "crib");
+        m.insert("2134", "croissant");
+        m.insert("2135", "crumble");
+        m.insert("2136", "crystal");
+        m.insert("2141", "cubical");
+        m.insert("2142", "cucumber");
+        m.insert("2143", "cuddly");
+        m.insert("2144", "cufflink");
+        m.insert("2145", "cuisine");
+        m.insert("2146", "culprit");
+        m.insert("2151", "cup");
+        m.insert("2152", "curry");
+        m.insert("2153", "cushion");
+        m.insert("2154", "cuticle");
+        m.insert("2155", "cybernetic");
+        m.insert("2156", "cyclist");
+        m.insert("2161", "cylinder");
+        m.insert("2162", "cymbal");
+        m.insert("2163", "cynicism");
+        m.insert("2164", "cypress");
+        m.insert("2165", "cytoplasm");
+        m.insert("2166", "dachshund");
+        m.insert("2211", "daffodil");
+        m.insert("2212", "dagger");
+        m.insert("2213", "dairy");
+        m.insert("2214", "dalmatian");
+        m.insert("2215", "dandelion");
+        m.insert("2216", "dartboard");
+        m.insert("2221", "dastardly");
+        m.insert("2222", "datebook");
+        m.insert("2223", "daughter");
+        m.insert("2224", "dawn");
+        m.insert("2225", "daytime");
+        m.insert("2226", "dazzler");
+        m.insert("2231", "dealer");
+        m.insert("2232", "debris");
+        m.insert("2233", "decal");
+        m.insert("2234", "dedicate");
+        m.insert("2235", "deepness");
+        m.insert("2236", "defrost");
+        m.insert("2241", "degree");
+        m.insert("2242", "dehydrator");
+        m.insert("2243", "deliverer");
+        m.insert("2244", "democrat");
+        m.insert("2245", "dentist");
+        m.insert("2246", "deodorant");
+        m.insert("2251", "depot");
+        m.insert("2252", "deranged");
+        m.insert("2253", "desktop");
+        m.insert("2254", "detergent");
+        m.insert("2255", "device");
+        m.insert("2256", "dexterity");
+        m.insert("2261", "diamond");
+        m.insert("2262", "dibs");
+        m.insert("2263", "dictionary");
+        m.insert("2264", "diffuser");
+        m.insert("2265", "digit");
+        m.insert("2266", "dilated");
+        m.insert("2311", "dimple");
+        m.insert("2312", "dinnerware");
+        m.insert("2313", "dioxide");
+        m.insert("2314", "diploma");
+        m.insert("2315", "directory");
+        m.insert("2316", "dishcloth");
+        m.insert("2321", "ditto");
+        m.insert("2322", "dividers");
+        m.insert("2323", "dizziness");
+        m.insert("2324", "doctor");
+        m.insert("2325", "dodge");
+        m.insert("2326", "doll");
+        m.insert("2331", "dominoes");
+        m.insert("2332", "donut");
+        m.insert("2333", "doorstep");
+        m.insert("2334", "dorsal");
+        m.insert("2335", "double");
+        m.insert("2336", "downstairs");
+        m.insert("2341", "dozed");
+        m.insert("2342", "drainpipe");
+        m.insert("2343", "dresser");
+        m.insert("2344", "driftwood");
+        m.insert("2345", "droppings");
+        m.insert("2346", "drum");
+        m.insert("2351", "dryer");
+        m.insert("2352", "dubiously");
+        m.insert("2353", "duckling");
+        m.insert("2354", "duffel");
+        m.insert("2355", "dugout");
+        m.insert("2356", "dumpster");
+        m.insert("2361", "duplex");
+        m.insert("2362", "durable");
+        m.insert("2363", "dustpan");
+        m.insert("2364", "dutiful");
+        m.insert("2365", "duvet");
+        m.insert("2366", "dwarfism");
+        m.insert("2411", "dwelling");
+        m.insert("2412", "dwindling");
+        m.insert("2413", "dynamite");
+        m.insert("2414", "dyslexia");
+        m.insert("2415", "eagerness");
+        m.insert("2416", "earlobe");
+        m.insert("2421", "easel");
+        m.insert("2422", "eavesdrop");
+        m.insert("2423", "ebook");
+        m.insert("2424", "eccentric");
+        m.insert("2425", "echoless");
+        m.insert("2426", "eclipse");
+        m.insert("2431", "ecosystem");
+        m.insert("2432", "ecstasy");
+        m.insert("2433", "edged");
+        m.insert("2434", "editor");
+        m.insert("2435", "educator");
+        m.insert("2436", "eelworm");
+        m.insert("2441", "eerie");
+        m.insert("2442", "effects");
+        m.insert("2443", "eggnog");
+        m.insert("2444", "egomaniac");
+        m.insert("2445", "ejection");
+        m.insert("2446", "elastic");
+        m.insert("2451", "elbow");
+        m.insert("2452", "elderly");
+        m.insert("2453", "elephant");
+        m.insert("2454", "elfishly");
+        m.insert("2455", "eliminator");
+        m.insert("2456", "elk");
+        m.insert("2461", "elliptical");
+        m.insert("2462", "elongated");
+        m.insert("2463", "elsewhere");
+        m.insert("2464", "elusive");
+        m.insert("2465", "elves");
+        m.insert("2466", "emancipate");
+        m.insert("2511", "embroidery");
+        m.insert("2512", "emcee");
+        m.insert("2513", "emerald");
+        m.insert("2514", "emission");
+        m.insert("2515", "emoticon");
+        m.insert("2516", "emperor");
+        m.insert("2521", "emulate");
+        m.insert("2522", "enactment");
+        m.insert("2523", "enchilada");
+        m.insert("2524", "endorphin");
+        m.insert("2525", "energy");
+        m.insert("2526", "enforcer");
+        m.insert("2531", "engine");
+        m.insert("2532", "enhance");
+        m.insert("2533", "enigmatic");
+        m.insert("2534", "enjoyably");
+        m.insert("2535", "enlarged");
+        m.insert("2536", "enormous");
+        m.insert("2541", "enquirer");
+        m.insert("2542", "enrollment");
+        m.insert("2543", "ensemble");
+        m.insert("2544", "entryway");
+        m.insert("2545", "enunciate");
+        m.insert("2546", "envoy");
+        m.insert("2551", "enzyme");
+        m.insert("2552", "epidemic");
+        m.insert("2553", "equipment");
+        m.insert("2554", "erasable");
+        m.insert("2555", "ergonomic");
+        m.insert("2556", "erratic");
+        m.insert("2561", "eruption");
+        m.insert("2562", "escalator");
+        m.insert("2563", "eskimo");
+        m.insert("2564", "esophagus");
+        m.insert("2565", "espresso");
+        m.insert("2566", "essay");
+        m.insert("2611", "estrogen");
+        m.insert("2612", "etching");
+        m.insert("2613", "eternal");
+        m.insert("2614", "ethics");
+        m.insert("2615", "etiquette");
+        m.insert("2616", "eucalyptus");
+        m.insert("2621", "eulogy");
+        m.insert("2622", "euphemism");
+        m.insert("2623", "euthanize");
+        m.insert("2624", "evacuation");
+        m.insert("2625", "evergreen");
+        m.insert("2626", "evidence");
+        m.insert("2631", "evolution");
+        m.insert("2632", "exam");
+        m.insert("2633", "excerpt");
+        m.insert("2634", "exerciser");
+        m.insert("2635", "exfoliate");
+        m.insert("2636", "exhale");
+        m.insert("2641", "exist");
+        m.insert("2642", "exorcist");
+        m.insert("2643", "explode");
+        m.insert("2644", "exquisite");
+        m.insert("2645", "exterior");
+        m.insert("2646", "exuberant");
+        m.insert("2651", "fabric");
+        m.insert("2652", "factory");
+        m.insert("2653", "faded");
+        m.insert("2654", "failsafe");
+        m.insert("2655", "falcon");
+        m.insert("2656", "family");
+        m.insert("2661", "fanfare");
+        m.insert("2662", "fasten");
+        m.insert("2663", "faucet");
+        m.insert("2664", "favorite");
+        m.insert("2665", "feasibly");
+        m.insert("2666", "february");
+        m.insert("3111", "federal");
+        m.insert("3112", "feedback");
+        m.insert("3113", "feigned");
+        m.insert("3114", "feline");
+        m.insert("3115", "femur");
+        m.insert("3116", "fence");
+        m.insert("3121", "ferret");
+        m.insert("3122", "festival");
+        m.insert("3123", "fettuccine");
+        m.insert("3124", "feudalist");
+        m.insert("3125", "feverish");
+        m.insert("3126", "fiberglass");
+        m.insert("3131", "fictitious");
+        m.insert("3132", "fiddle");
+        m.insert("3133", "figurine");
+        m.insert("3134", "fillet");
+        m.insert("3135", "finalist");
+        m.insert("3136", "fiscally");
+        m.insert("3141", "fixture");
+        m.insert("3142", "flashlight");
+        m.insert("3143", "fleshiness");
+        m.insert("3144", "flight");
+        m.insert("3145", "florist");
+        m.insert("3146", "flypaper");
+        m.insert("3151", "foamless");
+        m.insert("3152", "focus");
+        m.insert("3153", "foggy");
+        m.insert("3154", "folksong");
+        m.insert("3155", "fondue");
+        m.insert("3156", "footpath");
+        m.insert("3161", "fossil");
+        m.insert("3162", "fountain");
+        m.insert("3163", "fox");
+        m.insert("3164", "fragment");
+        m.insert("3165", "freeway");
+        m.insert("3166", "fridge");
+        m.insert("3211", "frosting");
+        m.insert("3212", "fruit");
+        m.insert("3213", "fryingpan");
+        m.insert("3214", "gadget");
+        m.insert("3215", "gainfully");
+        m.insert("3216", "gallstone");
+        m.insert("3221", "gamekeeper");
+        m.insert("3222", "gangway");
+        m.insert("3223", "garlic");
+        m.insert("3224", "gaslight");
+        m.insert("3225", "gathering");
+        m.insert("3226", "gauntlet");
+        m.insert("3231", "gearbox");
+        m.insert("3232", "gecko");
+        m.insert("3233", "gem");
+        m.insert("3234", "generator");
+        m.insert("3235", "geographer");
+        m.insert("3236", "gerbil");
+        m.insert("3241", "gesture");
+        m.insert("3242", "getaway");
+        m.insert("3243", "geyser");
+        m.insert("3244", "ghoulishly");
+        m.insert("3245", "gibberish");
+        m.insert("3246", "giddiness");
+        m.insert("3251", "giftshop");
+        m.insert("3252", "gigabyte");
+        m.insert("3253", "gimmick");
+        m.insert("3254", "giraffe");
+        m.insert("3255", "giveaway");
+        m.insert("3256", "gizmo");
+        m.insert("3261", "glasses");
+        m.insert("3262", "gleeful");
+        m.insert("3263", "glisten");
+        m.insert("3264", "glove");
+        m.insert("3265", "glucose");
+        m.insert("3266", "glycerin");
+        m.insert("3311", "gnarly");
+        m.insert("3312", "gnomish");
+        m.insert("3313", "goatskin");
+        m.insert("3314", "goggles");
+        m.insert("3315", "goldfish");
+        m.insert("3316", "gong");
+        m.insert("3321", "gooey");
+        m.insert("3322", "gorgeous");
+        m.insert("3323", "gosling");
+        m.insert("3324", "gothic");
+        m.insert("3325", "gourmet");
+        m.insert("3326", "governor");
+        m.insert("3331", "grape");
+        m.insert("3332", "greyhound");
+        m.insert("3333", "grill");
+        m.insert("3334", "groundhog");
+        m.insert("3335", "grumbling");
+        m.insert("3336", "guacamole");
+        m.insert("3341", "guerrilla");
+        m.insert("3342", "guitar");
+        m.insert("3343", "gullible");
+        m.insert("3344", "gumdrop");
+        m.insert("3345", "gurgling");
+        m.insert("3346", "gusto");
+        m.insert("3351", "gutless");
+        m.insert("3352", "gymnast");
+        m.insert("3353", "gynecology");
+        m.insert("3354", "gyration");
+        m.insert("3355", "habitat");
+        m.insert("3356", "hacking");
+        m.insert("3361", "haggard");
+        m.insert("3362", "haiku");
+        m.insert("3363", "halogen");
+        m.insert("3364", "hamburger");
+        m.insert("3365", "handgun");
+        m.insert("3366", "happiness");
+        m.insert("3411", "hardhat");
+        m.insert("3412", "hastily");
+        m.insert("3413", "hatchling");
+        m.insert("3414", "haughty");
+        m.insert("3415", "hazelnut");
+        m.insert("3416", "headband");
+        m.insert("3421", "hedgehog");
+        m.insert("3422", "hefty");
+        m.insert("3423", "heinously");
+        m.insert("3424", "helmet");
+        m.insert("3425", "hemoglobin");
+        m.insert("3426", "henceforth");
+        m.insert("3431", "herbs");
+        m.insert("3432", "hesitation");
+        m.insert("3433", "hexagon");
+        m.insert("3434", "hubcap");
+        m.insert("3435", "huddling");
+        m.insert("3436", "huff");
+        m.insert("3441", "hugeness");
+        m.insert("3442", "hullabaloo");
+        m.insert("3443", "human");
+        m.insert("3444", "hunter");
+        m.insert("3445", "hurricane");
+        m.insert("3446", "hushing");
+        m.insert("3451", "hyacinth");
+        m.insert("3452", "hybrid");
+        m.insert("3453", "hydrant");
+        m.insert("3454", "hygienist");
+        m.insert("3455", "hypnotist");
+        m.insert("3456", "ibuprofen");
+        m.insert("3461", "icepack");
+        m.insert("3462", "icing");
+        m.insert("3463", "iconic");
+        m.insert("3464", "identical");
+        m.insert("3465", "idiocy");
+        m.insert("3466", "idly");
+        m.insert("3511", "igloo");
+        m.insert("3512", "ignition");
+        m.insert("3513", "iguana");
+        m.insert("3514", "illuminate");
+        m.insert("3515", "imaging");
+        m.insert("3516", "imbecile");
+        m.insert("3521", "imitator");
+        m.insert("3522", "immigrant");
+        m.insert("3523", "imprint");
+        m.insert("3524", "iodine");
+        m.insert("3525", "ionosphere");
+        m.insert("3526", "ipad");
+        m.insert("3531", "iphone");
+        m.insert("3532", "iridescent");
+        m.insert("3533", "irksome");
+        m.insert("3534", "iron");
+        m.insert("3535", "irrigation");
+        m.insert("3536", "island");
+        m.insert("3541", "isotope");
+        m.insert("3542", "issueless");
+        m.insert("3543", "italicize");
+        m.insert("3544", "itemizer");
+        m.insert("3545", "itinerary");
+        m.insert("3546", "itunes");
+        m.insert("3551", "ivory");
+        m.insert("3552", "jabbering");
+        m.insert("3553", "jackrabbit");
+        m.insert("3554", "jaguar");
+        m.insert("3555", "jailhouse");
+        m.insert("3556", "jalapeno");
+        m.insert("3561", "jamboree");
+        m.insert("3562", "janitor");
+        m.insert("3563", "jarring");
+        m.insert("3564", "jasmine");
+        m.insert("3565", "jaundice");
+        m.insert("3566", "jawbreaker");
+        m.insert("3611", "jaywalker");
+        m.insert("3612", "jazz");
+        m.insert("3613", "jealous");
+        m.insert("3614", "jeep");
+        m.insert("3615", "jelly");
+        m.insert("3616", "jeopardize");
+        m.insert("3621", "jersey");
+        m.insert("3622", "jetski");
+        m.insert("3623", "jezebel");
+        m.insert("3624", "jiffy");
+        m.insert("3625", "jigsaw");
+        m.insert("3626", "jingling");
+        m.insert("3631", "jobholder");
+        m.insert("3632", "jockstrap");
+        m.insert("3633", "jogging");
+        m.insert("3634", "john");
+        m.insert("3635", "joinable");
+        m.insert("3636", "jokingly");
+        m.insert("3641", "journal");
+        m.insert("3642", "jovial");
+        m.insert("3643", "joystick");
+        m.insert("3644", "jubilant");
+        m.insert("3645", "judiciary");
+        m.insert("3646", "juggle");
+        m.insert("3651", "juice");
+        m.insert("3652", "jujitsu");
+        m.insert("3653", "jukebox");
+        m.insert("3654", "jumpiness");
+        m.insert("3655", "junkyard");
+        m.insert("3656", "juror");
+        m.insert("3661", "justifying");
+        m.insert("3662", "juvenile");
+        m.insert("3663", "kabob");
+        m.insert("3664", "kamikaze");
+        m.insert("3665", "kangaroo");
+        m.insert("3666", "karate");
+        m.insert("4111", "kayak");
+        m.insert("4112", "keepsake");
+        m.insert("4113", "kennel");
+        m.insert("4114", "kerosene");
+        m.insert("4115", "ketchup");
+        m.insert("4116", "khaki");
+        m.insert("4121", "kickstand");
+        m.insert("4122", "kilogram");
+        m.insert("4123", "kimono");
+        m.insert("4124", "kingdom");
+        m.insert("4125", "kiosk");
+        m.insert("4126", "kissing");
+        m.insert("4131", "kite");
+        m.insert("4132", "kleenex");
+        m.insert("4133", "knapsack");
+        m.insert("4134", "kneecap");
+        m.insert("4135", "knickers");
+        m.insert("4136", "koala");
+        m.insert("4141", "krypton");
+        m.insert("4142", "laboratory");
+        m.insert("4143", "ladder");
+        m.insert("4144", "lakefront");
+        m.insert("4145", "lantern");
+        m.insert("4146", "laptop");
+        m.insert("4151", "laryngitis");
+        m.insert("4152", "lasagna");
+        m.insert("4153", "latch");
+        m.insert("4154", "laundry");
+        m.insert("4155", "lavender");
+        m.insert("4156", "laxative");
+        m.insert("4161", "lazybones");
+        m.insert("4162", "lecturer");
+        m.insert("4163", "leftover");
+        m.insert("4164", "leggings");
+        m.insert("4165", "leisure");
+        m.insert("4166", "lemon");
+        m.insert("4211", "length");
+        m.insert("4212", "leopard");
+        m.insert("4213", "leprechaun");
+        m.insert("4214", "lettuce");
+        m.insert("4215", "leukemia");
+        m.insert("4216", "levers");
+        m.insert("4221", "lewdness");
+        m.insert("4222", "liability");
+        m.insert("4223", "library");
+        m.insert("4224", "licorice");
+        m.insert("4225", "lifeboat");
+        m.insert("4226", "lightbulb");
+        m.insert("4231", "likewise");
+        m.insert("4232", "lilac");
+        m.insert("4233", "limousine");
+        m.insert("4234", "lint");
+        m.insert("4235", "lioness");
+        m.insert("4236", "lipstick");
+        m.insert("4241", "liquid");
+        m.insert("4242", "listless");
+        m.insert("4243", "litter");
+        m.insert("4244", "liverwurst");
+        m.insert("4245", "lizard");
+        m.insert("4246", "llama");
+        m.insert("4251", "luau");
+        m.insert("4252", "lubricant");
+        m.insert("4253", "lucidity");
+        m.insert("4254", "ludicrous");
+        m.insert("4255", "luggage");
+        m.insert("4256", "lukewarm");
+        m.insert("4261", "lullaby");
+        m.insert("4262", "lumberjack");
+        m.insert("4263", "lunchbox");
+        m.insert("4264", "luridness");
+        m.insert("4265", "luscious");
+        m.insert("4266", "luxurious");
+        m.insert("4311", "lyrics");
+        m.insert("4312", "macaroni");
+        m.insert("4313", "maestro");
+        m.insert("4314", "magazine");
+        m.insert("4315", "mahogany");
+        m.insert("4316", "maimed");
+        m.insert("4321", "majority");
+        m.insert("4322", "makeover");
+        m.insert("4323", "malformed");
+        m.insert("4324", "mammal");
+        m.insert("4325", "mango");
+        m.insert("4326", "mapmaker");
+        m.insert("4331", "marbles");
+        m.insert("4332", "massager");
+        m.insert("4333", "matchstick");
+        m.insert("4334", "maverick");
+        m.insert("4335", "maximum");
+        m.insert("4336", "mayonnaise");
+        m.insert("4341", "moaning");
+        m.insert("4342", "mobilize");
+        m.insert("4343", "moccasin");
+        m.insert("4344", "modify");
+        m.insert("4345", "moisture");
+        m.insert("4346", "molecule");
+        m.insert("4351", "momentum");
+        m.insert("4352", "monastery");
+        m.insert("4353", "moonshine");
+        m.insert("4354", "mortuary");
+        m.insert("4355", "mosquito");
+        m.insert("4356", "motorcycle");
+        m.insert("4361", "mousetrap");
+        m.insert("4362", "movie");
+        m.insert("4363", "mower");
+        m.insert("4364", "mozzarella");
+        m.insert("4365", "muckiness");
+        m.insert("4366", "mudflow");
+        m.insert("4411", "mugshot");
+        m.insert("4412", "mule");
+        m.insert("4413", "mummy");
+        m.insert("4414", "mundane");
+        m.insert("4415", "muppet");
+        m.insert("4416", "mural");
+        m.insert("4421", "mustard");
+        m.insert("4422", "mutation");
+        m.insert("4423", "myriad");
+        m.insert("4424", "myspace");
+        m.insert("4425", "myth");
+        m.insert("4426", "nail");
+        m.insert("4431", "namesake");
+        m.insert("4432", "nanosecond");
+        m.insert("4433", "napkin");
+        m.insert("4434", "narrator");
+        m.insert("4435", "nastiness");
+        m.insert("4436", "natives");
+        m.insert("4441", "nautically");
+        m.insert("4442", "navigate");
+        m.insert("4443", "nearest");
+        m.insert("4444", "nebula");
+        m.insert("4445", "nectar");
+        m.insert("4446", "nefarious");
+        m.insert("4451", "negotiator");
+        m.insert("4452", "neither");
+        m.insert("4453", "nemesis");
+        m.insert("4454", "neoliberal");
+        m.insert("4455", "nephew");
+        m.insert("4456", "nervously");
+        m.insert("4461", "nest");
+        m.insert("4462", "netting");
+        m.insert("4463", "neuron");
+        m.insert("4464", "nevermore");
+        m.insert("4465", "nextdoor");
+        m.insert("4466", "nicotine");
+        m.insert("4511", "niece");
+        m.insert("4512", "nimbleness");
+        m.insert("4513", "nintendo");
+        m.insert("4514", "nirvana");
+        m.insert("4515", "nuclear");
+        m.insert("4516", "nugget");
+        m.insert("4521", "nuisance");
+        m.insert("4522", "nullify");
+        m.insert("4523", "numbing");
+        m.insert("4524", "nuptials");
+        m.insert("4525", "nursery");
+        m.insert("4526", "nutcracker");
+        m.insert("4531", "nylon");
+        m.insert("4532", "oasis");
+        m.insert("4533", "oat");
+        m.insert("4534", "obediently");
+        m.insert("4535", "obituary");
+        m.insert("4536", "object");
+        m.insert("4541", "obliterate");
+        m.insert("4542", "obnoxious");
+        m.insert("4543", "observer");
+        m.insert("4544", "obtain");
+        m.insert("4545", "obvious");
+        m.insert("4546", "occupation");
+        m.insert("4551", "oceanic");
+        m.insert("4552", "octopus");
+        m.insert("4553", "ocular");
+        m.insert("4554", "office");
+        m.insert("4555", "oftentimes");
+        m.insert("4556", "oiliness");
+        m.insert("4561", "ointment");
+        m.insert("4562", "older");
+        m.insert("4563", "olympics");
+        m.insert("4564", "omissible");
+        m.insert("4565", "omnivorous");
+        m.insert("4566", "oncoming");
+        m.insert("4611", "onion");
+        m.insert("4612", "onlooker");
+        m.insert("4613", "onstage");
+        m.insert("4614", "onward");
+        m.insert("4615", "onyx");
+        m.insert("4616", "oomph");
+        m.insert("4621", "opaquely");
+        m.insert("4622", "opera");
+        m.insert("4623", "opium");
+        m.insert("4624", "opossum");
+        m.insert("4625", "opponent");
+        m.insert("4626", "optical");
+        m.insert("4631", "opulently");
+        m.insert("4632", "oscillator");
+        m.insert("4633", "osmosis");
+        m.insert("4634", "ostrich");
+        m.insert("4635", "otherwise");
+        m.insert("4636", "ought");
+        m.insert("4641", "outhouse");
+        m.insert("4642", "ovation");
+        m.insert("4643", "oven");
+        m.insert("4644", "owlish");
+        m.insert("4645", "oxford");
+        m.insert("4646", "oxidize");
+        m.insert("4651", "oxygen");
+        m.insert("4652", "oyster");
+        m.insert("4653", "ozone");
+        m.insert("4654", "pacemaker");
+        m.insert("4655", "padlock");
+        m.insert("4656", "pageant");
+        m.insert("4661", "pajamas");
+        m.insert("4662", "palm");
+        m.insert("4663", "pamphlet");
+        m.insert("4664", "pantyhose");
+        m.insert("4665", "paprika");
+        m.insert("4666", "parakeet");
+        m.insert("5111", "passport");
+        m.insert("5112", "patio");
+        m.insert("5113", "pauper");
+        m.insert("5114", "pavement");
+        m.insert("5115", "payphone");
+        m.insert("5116", "pebble");
+        m.insert("5121", "peculiarly");
+        m.insert("5122", "pedometer");
+        m.insert("5123", "pegboard");
+        m.insert("5124", "pelican");
+        m.insert("5125", "penguin");
+        m.insert("5126", "peony");
+        m.insert("5131", "pepperoni");
+        m.insert("5132", "peroxide");
+        m.insert("5133", "pesticide");
+        m.insert("5134", "petroleum");
+        m.insert("5135", "pewter");
+        m.insert("5136", "pharmacy");
+        m.insert("5141", "pheasant");
+        m.insert("5142", "phonebook");
+        m.insert("5143", "phrasing");
+        m.insert("5144", "physician");
+        m.insert("5145", "plank");
+        m.insert("5146", "pledge");
+        m.insert("5151", "plotted");
+        m.insert("5152", "plug");
+        m.insert("5153", "plywood");
+        m.insert("5154", "pneumonia");
+        m.insert("5155", "podiatrist");
+        m.insert("5156", "poetic");
+        m.insert("5161", "pogo");
+        m.insert("5162", "poison");
+        m.insert("5163", "poking");
+        m.insert("5164", "policeman");
+        m.insert("5165", "poncho");
+        m.insert("5166", "popcorn");
+        m.insert("5211", "porcupine");
+        m.insert("5212", "postcard");
+        m.insert("5213", "poultry");
+        m.insert("5214", "powerboat");
+        m.insert("5215", "prairie");
+        m.insert("5216", "pretzel");
+        m.insert("5221", "princess");
+        m.insert("5222", "propeller");
+        m.insert("5223", "prune");
+        m.insert("5224", "pry");
+        m.insert("5225", "pseudo");
+        m.insert("5226", "psychopath");
+        m.insert("5231", "publisher");
+        m.insert("5232", "pucker");
+        m.insert("5233", "pueblo");
+        m.insert("5234", "pulley");
+        m.insert("5235", "pumpkin");
+        m.insert("5236", "punchbowl");
+        m.insert("5241", "puppy");
+        m.insert("5242", "purse");
+        m.insert("5243", "pushup");
+        m.insert("5244", "putt");
+        m.insert("5245", "puzzle");
+        m.insert("5246", "pyramid");
+        m.insert("5251", "python");
+        m.insert("5252", "quarters");
+        m.insert("5253", "quesadilla");
+        m.insert("5254", "quilt");
+        m.insert("5255", "quote");
+        m.insert("5256", "racoon");
+        m.insert("5261", "radish");
+        m.insert("5262", "ragweed");
+        m.insert("5263", "railroad");
+        m.insert("5264", "rampantly");
+        m.insert("5265", "rancidity");
+        m.insert("5266", "rarity");
+        m.insert("5311", "raspberry");
+        m.insert("5312", "ravishing");
+        m.insert("5313", "rearrange");
+        m.insert("5314", "rebuilt");
+        m.insert("5315", "receipt");
+        m.insert("5316", "reentry");
+        m.insert("5321", "refinery");
+        m.insert("5322", "register");
+        m.insert("5323", "rehydrate");
+        m.insert("5324", "reimburse");
+        m.insert("5325", "rejoicing");
+        m.insert("5326", "rekindle");
+        m.insert("5331", "relic");
+        m.insert("5332", "remote");
+        m.insert("5333", "renovator");
+        m.insert("5334", "reopen");
+        m.insert("5335", "reporter");
+        m.insert("5336", "request");
+        m.insert("5341", "rerun");
+        m.insert("5342", "reservoir");
+        m.insert("5343", "retriever");
+        m.insert("5344", "reunion");
+        m.insert("5345", "revolver");
+        m.insert("5346", "rewrite");
+        m.insert("5351", "rhapsody");
+        m.insert("5352", "rhetoric");
+        m.insert("5353", "rhino");
+        m.insert("5354", "rhubarb");
+        m.insert("5355", "rhyme");
+        m.insert("5356", "ribbon");
+        m.insert("5361", "riches");
+        m.insert("5362", "ridden");
+        m.insert("5363", "rigidness");
+        m.insert("5364", "rimmed");
+        m.insert("5365", "riptide");
+        m.insert("5366", "riskily");
+        m.insert("5411", "ritzy");
+        m.insert("5412", "riverboat");
+        m.insert("5413", "roamer");
+        m.insert("5414", "robe");
+        m.insert("5415", "rocket");
+        m.insert("5416", "romancer");
+        m.insert("5421", "ropelike");
+        m.insert("5422", "rotisserie");
+        m.insert("5423", "roundtable");
+        m.insert("5424", "royal");
+        m.insert("5425", "rubber");
+        m.insert("5426", "rudderless");
+        m.insert("5431", "rugby");
+        m.insert("5432", "ruined");
+        m.insert("5433", "rulebook");
+        m.insert("5434", "rummage");
+        m.insert("5435", "running");
+        m.insert("5436", "rupture");
+        m.insert("5441", "rustproof");
+        m.insert("5442", "sabotage");
+        m.insert("5443", "sacrifice");
+        m.insert("5444", "saddlebag");
+        m.insert("5445", "saffron");
+        m.insert("5446", "sainthood");
+        m.insert("5451", "saltshaker");
+        m.insert("5452", "samurai");
+        m.insert("5453", "sandworm");
+        m.insert("5454", "sapphire");
+        m.insert("5455", "sardine");
+        m.insert("5456", "sassy");
+        m.insert("5461", "satchel");
+        m.insert("5462", "sauna");
+        m.insert("5463", "savage");
+        m.insert("5464", "saxophone");
+        m.insert("5465", "scarf");
+        m.insert("5466", "scenario");
+        m.insert("5511", "schoolbook");
+        m.insert("5512", "scientist");
+        m.insert("5513", "scooter");
+        m.insert("5514", "scrapbook");
+        m.insert("5515", "sculpture");
+        m.insert("5516", "scythe");
+        m.insert("5521", "secretary");
+        m.insert("5522", "sedative");
+        m.insert("5523", "segregator");
+        m.insert("5524", "seismology");
+        m.insert("5525", "selected");
+        m.insert("5526", "semicolon");
+        m.insert("5531", "senator");
+        m.insert("5532", "septum");
+        m.insert("5533", "sequence");
+        m.insert("5534", "serpent");
+        m.insert("5535", "sesame");
+        m.insert("5536", "settler");
+        m.insert("5541", "severely");
+        m.insert("5542", "shack");
+        m.insert("5543", "shelf");
+        m.insert("5544", "shirt");
+        m.insert("5545", "shovel");
+        m.insert("5546", "shrimp");
+        m.insert("5551", "shuttle");
+        m.insert("5552", "shyness");
+        m.insert("5553", "siamese");
+        m.insert("5554", "sibling");
+        m.insert("5555", "siesta");
+        m.insert("5556", "silicon");
+        m.insert("5561", "simmering");
+        m.insert("5562", "singles");
+        m.insert("5563", "sisterhood");
+        m.insert("5564", "sitcom");
+        m.insert("5565", "sixfold");
+        m.insert("5566", "sizable");
+        m.insert("5611", "skateboard");
+        m.insert("5612", "skeleton");
+        m.insert("5613", "skies");
+        m.insert("5614", "skulk");
+        m.insert("5615", "skylight");
+        m.insert("5616", "slapping");
+        m.insert("5621", "sled");
+        m.insert("5622", "slingshot");
+        m.insert("5623", "sloth");
+        m.insert("5624", "slumbering");
+        m.insert("5625", "smartphone");
+        m.insert("5626", "smelliness");
+        m.insert("5631", "smitten");
+        m.insert("5632", "smokestack");
+        m.insert("5633", "smudge");
+        m.insert("5634", "snapshot");
+        m.insert("5635", "sneezing");
+        m.insert("5636", "sniff");
+        m.insert("5641", "snowsuit");
+        m.insert("5642", "snugness");
+        m.insert("5643", "speakers");
+        m.insert("5644", "sphinx");
+        m.insert("5645", "spider");
+        m.insert("5646", "splashing");
+        m.insert("5651", "sponge");
+        m.insert("5652", "sprout");
+        m.insert("5653", "spur");
+        m.insert("5654", "spyglass");
+        m.insert("5655", "squirrel");
+        m.insert("5656", "statue");
+        m.insert("5661", "steamboat");
+        m.insert("5662", "stingray");
+        m.insert("5663", "stopwatch");
+        m.insert("5664", "strawberry");
+        m.insert("5665", "student");
+        m.insert("5666", "stylus");
+        m.insert("6111", "suave");
+        m.insert("6112", "subway");
+        m.insert("6113", "suction");
+        m.insert("6114", "suds");
+        m.insert("6115", "suffocate");
+        m.insert("6116", "sugar");
+        m.insert("6121", "suitcase");
+        m.insert("6122", "sulphur");
+        m.insert("6123", "superstore");
+        m.insert("6124", "surfer");
+        m.insert("6125", "sushi");
+        m.insert("6126", "swan");
+        m.insert("6131", "sweatshirt");
+        m.insert("6132", "swimwear");
+        m.insert("6133", "sword");
+        m.insert("6134", "sycamore");
+        m.insert("6135", "syllable");
+        m.insert("6136", "symphony");
+        m.insert("6141", "synagogue");
+        m.insert("6142", "syringes");
+        m.insert("6143", "systemize");
+        m.insert("6144", "tablespoon");
+        m.insert("6145", "taco");
+        m.insert("6146", "tadpole");
+        m.insert("6151", "taekwondo");
+        m.insert("6152", "tagalong");
+        m.insert("6153", "takeout");
+        m.insert("6154", "tallness");
+        m.insert("6155", "tamale");
+        m.insert("6156", "tanned");
+        m.insert("6161", "tapestry");
+        m.insert("6162", "tarantula");
+        m.insert("6163", "tastebud");
+        m.insert("6164", "tattoo");
+        m.insert("6165", "tavern");
+        m.insert("6166", "thaw");
+        m.insert("6211", "theater");
+        m.insert("6212", "thimble");
+        m.insert("6213", "thorn");
+        m.insert("6214", "throat");
+        m.insert("6215", "thumb");
+        m.insert("6216", "thwarting");
+        m.insert("6221", "tiara");
+        m.insert("6222", "tidbit");
+        m.insert("6223", "tiebreaker");
+        m.insert("6224", "tiger");
+        m.insert("6225", "timid");
+        m.insert("6226", "tinsel");
+        m.insert("6231", "tiptoeing");
+        m.insert("6232", "tirade");
+        m.insert("6233", "tissue");
+        m.insert("6234", "tractor");
+        m.insert("6235", "tree");
+        m.insert("6236", "tripod");
+        m.insert("6241", "trousers");
+        m.insert("6242", "trucks");
+        m.insert("6243", "tryout");
+        m.insert("6244", "tubeless");
+        m.insert("6245", "tuesday");
+        m.insert("6246", "tugboat");
+        m.insert("6251", "tulip");
+        m.insert("6252", "tumbleweed");
+        m.insert("6253", "tupperware");
+        m.insert("6254", "turtle");
+        m.insert("6255", "tusk");
+        m.insert("6256", "tutorial");
+        m.insert("6261", "tuxedo");
+        m.insert("6262", "tweezers");
+        m.insert("6263", "twins");
+        m.insert("6264", "tyrannical");
+        m.insert("6265", "ultrasound");
+        m.insert("6266", "umbrella");
+        m.insert("6311", "umpire");
+        m.insert("6312", "unarmored");
+        m.insert("6313", "unbuttoned");
+        m.insert("6314", "uncle");
+        m.insert("6315", "underwear");
+        m.insert("6316", "unevenness");
+        m.insert("6321", "unflavored");
+        m.insert("6322", "ungloved");
+        m.insert("6323", "unhinge");
+        m.insert("6324", "unicycle");
+        m.insert("6325", "unjustly");
+        m.insert("6326", "unknown");
+        m.insert("6331", "unlocking");
+        m.insert("6332", "unmarked");
+        m.insert("6333", "unnoticed");
+        m.insert("6334", "unopened");
+        m.insert("6335", "unpaved");
+        m.insert("6336", "unquenched");
+        m.insert("6341", "unroll");
+        m.insert("6342", "unscrewing");
+        m.insert("6343", "untied");
+        m.insert("6344", "unusual");
+        m.insert("6345", "unveiled");
+        m.insert("6346", "unwrinkled");
+        m.insert("6351", "unyielding");
+        m.insert("6352", "unzip");
+        m.insert("6353", "upbeat");
+        m.insert("6354", "upcountry");
+        m.insert("6355", "update");
+        m.insert("6356", "upfront");
+        m.insert("6361", "upgrade");
+        m.insert("6362", "upholstery");
+        m.insert("6363", "upkeep");
+        m.insert("6364", "upload");
+        m.insert("6365", "uppercut");
+        m.insert("6366", "upright");
+        m.insert("6411", "upstairs");
+        m.insert("6412", "uptown");
+        m.insert("6413", "upwind");
+        m.insert("6414", "uranium");
+        m.insert("6415", "urban");
+        m.insert("6416", "urchin");
+        m.insert("6421", "urethane");
+        m.insert("6422", "urgent");
+        m.insert("6423", "urologist");
+        m.insert("6424", "username");
+        m.insert("6425", "usher");
+        m.insert("6426", "utensil");
+        m.insert("6431", "utility");
+        m.insert("6432", "utmost");
+        m.insert("6433", "utopia");
+        m.insert("6434", "utterance");
+        m.insert("6435", "vacuum");
+        m.insert("6436", "vagrancy");
+        m.insert("6441", "valuables");
+        m.insert("6442", "vanquished");
+        m.insert("6443", "vaporizer");
+        m.insert("6444", "varied");
+        m.insert("6445", "vaseline");
+        m.insert("6446", "vegetable");
+        m.insert("6451", "vehicle");
+        m.insert("6452", "velcro");
+        m.insert("6453", "vendor");
+        m.insert("6454", "vertebrae");
+        m.insert("6455", "vestibule");
+        m.insert("6456", "veteran");
+        m.insert("6461", "vexingly");
+        m.insert("6462", "vicinity");
+        m.insert("6463", "videogame");
+        m.insert("6464", "viewfinder");
+        m.insert("6465", "vigilante");
+        m.insert("6466", "village");
+        m.insert("6511", "vinegar");
+        m.insert("6512", "violin");
+        m.insert("6513", "viperfish");
+        m.insert("6514", "virus");
+        m.insert("6515", "visor");
+        m.insert("6516", "vitamins");
+        m.insert("6521", "vivacious");
+        m.insert("6522", "vixen");
+        m.insert("6523", "vocalist");
+        m.insert("6524", "vogue");
+        m.insert("6525", "voicemail");
+        m.insert("6526", "volleyball");
+        m.insert("6531", "voucher");
+        m.insert("6532", "voyage");
+        m.insert("6533", "vulnerable");
+        m.insert("6534", "waffle");
+        m.insert("6535", "wagon");
+        m.insert("6536", "wakeup");
+        m.insert("6541", "walrus");
+        m.insert("6542", "wanderer");
+        m.insert("6543", "wasp");
+        m.insert("6544", "water");
+        m.insert("6545", "waving");
+        m.insert("6546", "wheat");
+        m.insert("6551", "whisper");
+        m.insert("6552", "wholesaler");
+        m.insert("6553", "wick");
+        m.insert("6554", "widow");
+        m.insert("6555", "wielder");
+        m.insert("6556", "wifeless");
+        m.insert("6561", "wikipedia");
+        m.insert("6562", "wildcat");
+        m.insert("6563", "windmill");
+        m.insert("6564", "wipeout");
+        m.insert("6565", "wired");
+        m.insert("6566", "wishbone");
+        m.insert("6611", "wizardry");
+        m.insert("6612", "wobbliness");
+        m.insert("6613", "wolverine");
+        m.insert("6614", "womb");
+        m.insert("6615", "woolworker");
+        m.insert("6616", "workbasket");
+        m.insert("6621", "wound");
+        m.insert("6622", "wrangle");
+        m.insert("6623", "wreckage");
+        m.insert("6624", "wristwatch");
+        m.insert("6625", "wrongdoing");
+        m.insert("6626", "xerox");
+        m.insert("6631", "xylophone");
+        m.insert("6632", "yacht");
+        m.insert("6633", "yahoo");
+        m.insert("6634", "yard");
+        m.insert("6635", "yearbook");
+        m.insert("6636", "yesterday");
+        m.insert("6641", "yiddish");
+        m.insert("6642", "yield");
+        m.insert("6643", "yo-yo");
+        m.insert("6644", "yodel");
+        m.insert("6645", "yogurt");
+        m.insert("6646", "yuppie");
+        m.insert("6651", "zealot");
+        m.insert("6652", "zebra");
+        m.insert("6653", "zeppelin");
+        m.insert("6654", "zestfully");
+        m.insert("6655", "zigzagged");
+        m.insert("6656", "zillion");
+        m.insert("6661", "zipping");
+        m.insert("6662", "zirconium");
+        m.insert("6663", "zodiac");
+        m.insert("6664", "zombie");
+        m.insert("6665", "zookeeper");
+        m.insert("6666", "zucchini");
+        m
+    };
+}

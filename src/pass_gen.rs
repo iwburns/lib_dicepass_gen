@@ -2,7 +2,7 @@
 //! Contains logic and structures relevant to passphrase generation.
 //!
 
-use phf;
+use std::collections::HashMap;
 use rand::{OsRng, Rng};
 
 use defaults;
@@ -159,7 +159,7 @@ pub fn generate(config: PassGenConfig) -> String {
 }
 
 fn generate_passphrase(
-    sequence_map: &'static phf::Map<&'static str, &'static str>,
+    sequence_map: &'static HashMap<&'static str, &'static str>,
     length: u32,
     rolls_per_word: u32,
 ) -> String {
