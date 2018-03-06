@@ -1,8 +1,22 @@
+//!
+//! The specification for the `EffShort2` word list.
+//!
+
 extern crate phf;
 
+///
+/// The default number of words in a passphrase generated from the `EffShort2` word list.
+///
 pub static WORD_COUNT: u32 = 8;
+
+///
+/// The number of dice rolls needed to generate a word from the `EffShort2` word list.
+///
 pub static ROLLS_PER_WORD: u32 = 4;
 
+///
+/// The `EffShort2` word list represented as a HashMap.
+///
 pub static WORD_LIST: phf::Map<&'static str, &'static str> = phf_map! {
     "1111" => "aardvark",
     "1112" => "abandoned",

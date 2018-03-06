@@ -1,8 +1,22 @@
+//!
+//! The specification for the `EffLong` word list.
+//!
+
 extern crate phf;
 
+///
+/// The default number of words in a passphrase generated from the `EffLong` word list.
+///
 pub static WORD_COUNT: u32 = 5;
+
+///
+/// The number of dice rolls needed to generate a word from the `EffLong` word list.
+///
 pub static ROLLS_PER_WORD: u32 = 5;
 
+///
+/// The `EffLong` word list represented as a HashMap.
+///
 pub static WORD_LIST: phf::Map<&'static str, &'static str> = phf_map! {
     "11111" => "abacus",
     "11112" => "abdomen",

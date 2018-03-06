@@ -1,3 +1,7 @@
+//!
+//! Contains logic and structures relevant to passphrase generation.
+//!
+
 use phf;
 use rand::{OsRng, Rng};
 
