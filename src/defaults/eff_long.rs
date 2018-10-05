@@ -19,7 +19,7 @@ lazy_static! {
     /// The `EffLong` word list represented as a HashMap.
     ///
     pub static ref WORD_LIST: HashMap<&'static str, &'static str> = {
-        let mut m = HashMap::new();
+        let mut m = HashMap::with_capacity(7776);
         m.insert("11111", "abacus");
         m.insert("11112", "abdomen");
         m.insert("11113", "abdominal");
