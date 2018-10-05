@@ -19,7 +19,7 @@ lazy_static! {
     /// The `EffShort2` word list represented as a HashMap.
     ///
     pub static ref WORD_LIST: HashMap<&'static str, &'static str> = {
-        let mut m = HashMap::new();
+        let mut m = HashMap::with_capacity(1296);
         m.insert("1111", "aardvark");
         m.insert("1112", "abandoned");
         m.insert("1113", "abbreviate");
